@@ -54,11 +54,9 @@ scallopLoss(hann, 1024)         // → 1.42 dB (worst-case amplitude error)
 cola(hann, 1024, 512)           // → 0 (perfect STFT reconstruction at 50% overlap)
 ```
 
-## Window Reference
+## Reference
 
-### Simple — no parameters
-
-<br>
+## Simple — no parameters
 
 ### `rectangular(i, N)`
 
@@ -258,9 +256,7 @@ Autocorrelation of cosine window. Fast sidelobe decay, spectral estimation.
 
 <br>
 
-### Parameterized — adjustable tradeoff
-
-<br>
+## Parameterized — adjustable tradeoff
 
 ### `kaiser(i, N, beta)`
 
@@ -390,11 +386,9 @@ Approximate confined Gaussian — optimal RMS time-frequency bandwidth. Time-fre
 
 <br>
 
-### Array-computed — cached
+## Array-computed — cached
 
 These compute the full window on first call and cache the result. Recomputed when N or parameters change.
-
-<br>
 
 ### `dolphChebyshev(i, N, dB)`
 
