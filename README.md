@@ -1,9 +1,8 @@
 # window-function
 
-Complete collection of window functions for signal processing and spectral analysis.
-**34 windows** · zero dependencies · pure ESM · individual imports.
+Collection of window functions for signal processing and spectral analysis.
 
-```js
+```sh
 npm install window-function
 ```
 
