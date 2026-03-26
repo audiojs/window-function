@@ -26,7 +26,8 @@ apply(signal, hann)              // signal *= hann
 generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 ```
 
-## Contents
+
+## Window Reference
 
 **Simple:**<br>
 [rectangular](#rectangulari-n) ·
@@ -68,14 +69,6 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 [dpss](#dpssi-n-w) ·
 [ultraspherical](#ultrasphericali-n-mu-xmu)
 
-**Other:**<br>
-[Choosing a window](#choosing-a-window) ·
-[Metrics](#metrics) ·
-[Migrating from v2](#migrating-from-v2)
-
-
-
-## Window Reference
 
 ### Simple — no parameters
 
