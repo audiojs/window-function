@@ -7,9 +7,7 @@ npm install window-function
 ```
 
 ```js
-// Import everything, or just what you need
 import { hann, kaiser, generate, apply } from 'window-function'
-import hann from 'window-function/hann'
 
 // Every window: fn(i, N, ...params) → number
 hann(50, 101)                    // single sample → 1.0
@@ -23,6 +21,13 @@ apply(signal, hann)              // signal *= hann
 
 // Parameterized windows pass extra args
 generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
+```
+
+Or import individual windows directly:
+
+```js
+import hann from 'window-function/hann'
+import kaiser from 'window-function/kaiser'
 ```
 
 
@@ -306,7 +311,7 @@ $w(n) = \sin^\alpha\!\left(\frac{\pi n}{N-1}\right)$
 
 <img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/powerOfSine.svg">
 
-sin^α family. Codec design, parameterized spectral analysis.
+$\sin^\alpha$ family. Codec design, parameterized spectral analysis.
 
 ### `exponential(i, N, tau)`
 
@@ -474,9 +479,6 @@ cola(hann, 1024, 512)            // 0 — perfect STFT reconstruction
 - **`enbw(fn, N, ...params)`** — equivalent noise bandwidth in frequency bins. Rectangular = 1.0, Hann = 1.5, Blackman-Harris = 2.0. Lower = less noise.
 - **`scallopLoss(fn, N, ...params)`** — worst-case amplitude error in dB between DFT bins. Rectangular = 3.92, Hann = 1.42, flat-top ≈ 0.
 - **`cola(fn, N, hop, ...params)`** — COLA deviation. 0 = perfect STFT reconstruction at given hop size.
-
-
-The per-sample API `fn(i, N, ...params) → number` is unchanged.
 
 
 [^dolph1946]: C.L. Dolph, "A Current Distribution for Broadside Arrays," *Proc. IRE* 34, 1946.
