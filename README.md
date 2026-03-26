@@ -1,4 +1,4 @@
-# window-function [![test](https://github.com/audiojs/window-function/actions/workflows/test.yml/badge.svg)](https://github.com/audiojs/window-function/actions/workflows/test.yml)
+# window-function [![test](https://github.com/audiojs/window-function/actions/workflows/test.yml/badge.svg)](https://github.com/audiojs/window-function/actions/workflows/test.yml) [![npm](https://img.shields.io/npm/v/window-function)](https://www.npmjs.com/package/window-function)
 
 Collection of window functions for signal processing and spectral analysis.
 
