@@ -1,5 +1,5 @@
 import { cos, PI } from './_util.js'
-export function tukey (i, N, alpha) {
+export default function tukey (i, N, alpha) {
 	if (alpha == null) alpha = 0.5
 	let half = 0.5 * alpha * (N - 1)
 	if (half < 1e-12) return 1

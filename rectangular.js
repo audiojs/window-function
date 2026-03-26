@@ -1,1 +1,1 @@
-export function rectangular () { return 1 }
+export default function rectangular () { return 1 }

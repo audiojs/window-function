@@ -1,5 +1,5 @@
 import { cos, acosh, pow, PI, PI2, normalize } from './_util.js'
-export function taylor (i, N, nbar, sll) {
+export default function taylor (i, N, nbar, sll) {
 	if (nbar == null) nbar = 4
 	if (sll == null) sll = 30
 	let c = taylor

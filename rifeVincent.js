@@ -1,5 +1,5 @@
 import { cos, PI2 } from './_util.js'
-export function rifeVincent (i, N, order) {
+export default function rifeVincent (i, N, order) {
 	if (order == null) order = 1
 	let a
 	if (order === 1) a = [1, 1]

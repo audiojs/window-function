@@ -1,5 +1,5 @@
 import { sin, exp, sqrt, abs, PI, PI2, normalize } from './_util.js'
-export function dpss (i, N, W) {
+export default function dpss (i, N, W) {
 	if (W == null) W = 0.1
 	let c = dpss
 	if (c._N !== N || c._W !== W) {

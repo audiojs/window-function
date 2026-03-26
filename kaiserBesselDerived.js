@@ -1,5 +1,5 @@
 import { sqrt, abs, i0 } from './_util.js'
-export function kaiserBesselDerived (i, N, beta) {
+export default function kaiserBesselDerived (i, N, beta) {
 	if (beta == null) beta = 8.6
 	let c = kaiserBesselDerived
 	if (c._N !== N || c._b !== beta) {

@@ -1,6 +1,6 @@
 import { abs } from './_util.js'
-import { generate } from './generate.js'
-export function cola (fn, N, hop, ...params) {
+import generate from './generate.js'
+export default function cola (fn, N, hop, ...params) {
 	let win = generate(fn, N, ...params)
 	let sums = new Float64Array(hop)
 	for (let t = 0; t < hop; t++) for (let k = t; k < N; k += hop) sums[t] += win[k]

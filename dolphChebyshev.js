@@ -1,5 +1,5 @@
 import { cos, abs, cosh, acosh, acos, pow, PI, PI2, normalize } from './_util.js'
-export function dolphChebyshev (i, N, attenuation) {
+export default function dolphChebyshev (i, N, attenuation) {
 	if (attenuation == null) attenuation = 100
 	let c = dolphChebyshev
 	if (c._N !== N || c._a !== attenuation) {
