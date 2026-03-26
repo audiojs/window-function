@@ -59,7 +59,7 @@ cola(hann, 1024, 512)           // → 0 (perfect STFT reconstruction at 50% ove
 ### Simple — no parameters
 
 
-#### `rectangular(i, N)`
+### `rectangular(i, N)`
 
 $w(n) = 1$
 
@@ -69,7 +69,7 @@ No windowing at all. Best frequency resolution, worst spectral leakage. Use for 
 **-13 dB** peak sidelobe · **-6 dB/oct** rolloff
 
 
-#### `triangular(i, N)`
+### `triangular(i, N)`
 
 $w(n) = 1 - \left|\frac{2n - N + 1}{N}\right|$
 
@@ -79,7 +79,7 @@ Linear taper, nonzero endpoints. Simple smoothing, 2nd-order B-spline.
 **-27 dB** peak sidelobe · **-12 dB/oct** rolloff
 
 
-#### `bartlett(i, N)`
+### `bartlett(i, N)`
 
 $w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right|$
 
@@ -89,7 +89,7 @@ Linear taper, zero endpoints. Bartlett's method PSD estimation. Bartlett 1950.
 **-27 dB** peak sidelobe · **-12 dB/oct** rolloff
 
 
-#### `welch(i, N)`
+### `welch(i, N)`
 
 $w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2$
 
@@ -99,7 +99,7 @@ Parabolic taper. Welch's method PSD estimation. Welch 1967.
 **-21 dB** peak sidelobe · **-12 dB/oct** rolloff
 
 
-#### `connes(i, N)`
+### `connes(i, N)`
 
 $w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2$
 
@@ -109,7 +109,7 @@ Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodizatio
 **-24 dB/oct** rolloff
 
 
-#### `hann(i, N)`
+### `hann(i, N)`
 
 $w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
@@ -119,7 +119,7 @@ Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50%
 **-32 dB** peak sidelobe · **-18 dB/oct** rolloff
 
 
-#### `hamming(i, N)`
+### `hamming(i, N)`
 
 $w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
@@ -129,7 +129,7 @@ Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR
 **-43 dB** peak sidelobe · **-6 dB/oct** rolloff
 
 
-#### `cosine(i, N)`
+### `cosine(i, N)`
 
 $w(n) = \sin\!\left(\frac{\pi n}{N-1}\right)$
 
@@ -139,7 +139,7 @@ Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis. Princen & Bradley 1987.
 **-23 dB** peak sidelobe · **-12 dB/oct** rolloff
 
 
-#### `blackman(i, N)`
+### `blackman(i, N)`
 
 $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
@@ -149,7 +149,7 @@ $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{
 **-58 dB** peak sidelobe · **-18 dB/oct** rolloff
 
 
-#### `exactBlackman(i, N)`
+### `exactBlackman(i, N)`
 
 $w(n) = 0.42659 - 0.49656\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.076849\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
@@ -159,7 +159,7 @@ Blackman with exact zero placement at 3rd and 4th sidelobes. Harris 1978.
 **-69 dB** peak sidelobe · **-6 dB/oct** rolloff
 
 
-#### `nuttall(i, N)`
+### `nuttall(i, N)`
 
 $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.012604\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
@@ -169,7 +169,7 @@ $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\
 **-93 dB** peak sidelobe · **-18 dB/oct** rolloff
 
 
-#### `blackmanNuttall(i, N)`
+### `blackmanNuttall(i, N)`
 
 $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.1365995\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.0106411\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
@@ -179,7 +179,7 @@ $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.13659
 **-98 dB** peak sidelobe · **-6 dB/oct** rolloff
 
 
-#### `blackmanHarris(i, N)`
+### `blackmanHarris(i, N)`
 
 $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.01168\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
@@ -189,7 +189,7 @@ $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos
 **-92 dB** peak sidelobe · **-6 dB/oct** rolloff
 
 
-#### `flatTop(i, N)`
+### `flatTop(i, N)`
 
 $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.388\cos\!\left(\frac{6\pi n}{N\!-\!1}\right) + 0.028\cos\!\left(\frac{8\pi n}{N\!-\!1}\right)$
 
@@ -199,7 +199,7 @@ $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\fra
 **-93 dB** peak sidelobe · **-6 dB/oct** rolloff
 
 
-#### `bartlettHann(i, N)`
+### `bartlettHann(i, N)`
 
 $w(n) = 0.62 - 0.48\left|\frac{n}{N\!-\!1} - 0.5\right| - 0.38\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
@@ -209,7 +209,7 @@ Bartlett-Hann hybrid. Balanced near/far sidelobe levels. Ha & Pearce 1989.
 **-36 dB** peak sidelobe
 
 
-#### `lanczos(i, N)`
+### `lanczos(i, N)`
 
 $w(n) = \text{sinc}\!\left(\frac{2n}{N-1} - 1\right)$
 
@@ -219,7 +219,7 @@ Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick). Duchon 19
 **-26 dB** peak sidelobe
 
 
-#### `parzen(i, N)`
+### `parzen(i, N)`
 
 $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.5$, &ensp; where $a = |{(2n-N+1)}/{(N-1)}|$
 
@@ -229,7 +229,7 @@ $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.
 **-53 dB** peak sidelobe · **-24 dB/oct** rolloff
 
 
-#### `bohman(i, N)`
+### `bohman(i, N)`
 
 $w(n) = (1-|a|)\cos(\pi|a|) + \frac{\sin(\pi|a|)}{\pi} \quad a = \frac{2n-N+1}{N-1}$
 
@@ -242,7 +242,7 @@ Autocorrelation of cosine window. Fast sidelobe decay, spectral estimation.
 ### Parameterized — adjustable tradeoff
 
 
-#### `kaiser(i, N, beta)`
+### `kaiser(i, N, beta)`
 
 `beta`: shape — 0 → rectangular, 5.4 → Hamming, **8.6** (default) → Blackman.
 
@@ -253,7 +253,7 @@ $w(n) = \frac{I_0\!\left(\beta\sqrt{1 - \left(\frac{2n-N+1}{N-1}\right)^2}\right
 Near-optimal DPSS approximation via Bessel I₀. The standard parameterized window for FIR filter design. Kaiser 1974.
 
 
-#### `gaussian(i, N, sigma)`
+### `gaussian(i, N, sigma)`
 
 `sigma`: width, default **0.4**.
 
@@ -264,7 +264,7 @@ $w(n) = \exp\!\left[-\frac{1}{2}\left(\frac{2n-N+1}{\sigma(N-1)}\right)^2\right]
 Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency estimation via parabolic interpolation. Gabor 1946.
 
 
-#### `generalizedNormal(i, N, sigma, p)`
+### `generalizedNormal(i, N, sigma, p)`
 
 `sigma`: width (default **0.4**), `p`: shape — 2 = Gaussian, →∞ = rectangular.
 
@@ -275,7 +275,7 @@ $w(n) = \exp\!\left[-\frac{1}{2}\left|\frac{2n-N+1}{\sigma(N-1)}\right|^p\right]
 Continuous family between Gaussian and rectangular. Adjustable time-frequency tradeoff.
 
 
-#### `tukey(i, N, alpha)`
+### `tukey(i, N, alpha)`
 
 `alpha`: taper fraction — 0 → rectangular, **0.5** (default), 1 → Hann.
 
@@ -286,7 +286,7 @@ $w(n) = \tfrac{1}{2}[1+\cos(\pi(n/(\alpha(N\!-\!1)/2)-1))]$ in the tapered edges
 Flat center with cosine-tapered edges. Preserves signal amplitude while tapering. Vibration analysis, LIGO.
 
 
-#### `planckTaper(i, N, epsilon)`
+### `planckTaper(i, N, epsilon)`
 
 `epsilon`: taper fraction, default **0.1**.
 
@@ -295,7 +295,7 @@ Flat center with cosine-tapered edges. Preserves signal amplitude while tapering
 C∞-smooth bump function (infinitely differentiable). Gravitational wave analysis (LIGO/Virgo). McKechan 2010.
 
 
-#### `powerOfSine(i, N, alpha)`
+### `powerOfSine(i, N, alpha)`
 
 `alpha`: exponent — 0 → rectangular, 1 → cosine, **2** (default) → Hann.
 
@@ -306,7 +306,7 @@ $w(n) = \sin^\alpha\!\left(\frac{\pi n}{N-1}\right)$
 sin^α family. Codec design, parameterized spectral analysis.
 
 
-#### `exponential(i, N, tau)`
+### `exponential(i, N, tau)`
 
 `tau`: time constant, default **1**.
 
@@ -317,7 +317,7 @@ $w(n) = \exp\!\left(\frac{-|2n-N+1|}{\tau(N-1)}\right)$
 Exponential decay from center. Modal analysis, impact testing (compensates underdamped responses). Harris 1978.
 
 
-#### `hannPoisson(i, N, alpha)`
+### `hannPoisson(i, N, alpha)`
 
 `alpha`: decay — default **2**. At α ≥ 2, the transform has no sidelobes.
 
@@ -328,7 +328,7 @@ $w(n) = \frac{1}{2}\left(1-\cos\frac{2\pi n}{N\!-\!1}\right)\exp\!\left(\frac{-\
 Hann × exponential product. Unique no-sidelobe property enables frequency estimators using convex optimization.
 
 
-#### `cauchy(i, N, alpha)`
+### `cauchy(i, N, alpha)`
 
 `alpha`: width, default **3**.
 
@@ -339,7 +339,7 @@ $w(n) = \frac{1}{1+\left(\frac{\alpha(2n-N+1)}{N-1}\right)^2}$
 Lorentzian 1/(1+x²) shape. Matches spectral line shapes in spectroscopy. Harris 1978.
 
 
-#### `rifeVincent(i, N, order)`
+### `rifeVincent(i, N, order)`
 
 `order`: **1** (default) = Hann, 2, 3. Throws for other values.
 
@@ -350,7 +350,7 @@ $w(n) = \frac{1}{Z}\sum_{k=0}^{K}(-1)^k a_k\cos\frac{2\pi kn}{N-1}$
 Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis, interpolated DFT. Rife & Vincent 1970.
 
 
-#### `confinedGaussian(i, N, sigmaT)`
+### `confinedGaussian(i, N, sigmaT)`
 
 `sigmaT`: temporal width, default **0.1**.
 
@@ -364,7 +364,7 @@ Approximate confined Gaussian — optimal RMS time-frequency bandwidth. Time-fre
 These compute the full window on first call and cache the result. Recomputed when N or parameters change.
 
 
-#### `dolphChebyshev(i, N, dB)`
+### `dolphChebyshev(i, N, dB)`
 
 `dB`: sidelobe attenuation, default **100**.
 
@@ -375,7 +375,7 @@ $W(k) = (-1)^k T_{N-1}\!\left(\beta\cos\frac{\pi k}{N}\right),\quad w = \text{ID
 Optimal: narrowest main lobe for a given equiripple sidelobe level. Antenna array design, radar beam patterns. Dolph 1946.
 
 
-#### `taylor(i, N, nbar, sll)`
+### `taylor(i, N, nbar, sll)`
 
 `nbar`: number of constant-level sidelobes (default **4**), `sll`: sidelobe level in dB (default **30**).
 
@@ -386,7 +386,7 @@ $w(n) = 1 + 2\sum_{m=1}^{\bar{n}-1} F_m \cos\frac{2\pi m(n-(N\!-\!1)/2)}{N}$
 Dolph-Chebyshev variant with monotonically decreasing sidelobes. The radar community standard for SAR image formation. Taylor 1955.
 
 
-#### `kaiserBesselDerived(i, N, beta)`
+### `kaiserBesselDerived(i, N, beta)`
 
 `beta`: shape, default **8.6**. N must be even.
 
@@ -397,7 +397,7 @@ $w(n) = \sqrt{\frac{\sum_{j=0}^{n} K(j)}{\sum_{j=0}^{N/2} K(j)}} \quad K(j) = I_
 Satisfies the Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vorbis, Opus audio codecs (long blocks). Princen & Bradley 1987.
 
 
-#### `dpss(i, N, W)`
+### `dpss(i, N, W)`
 
 `W`: half-bandwidth [0, 0.5], default **0.1**.
 
@@ -408,7 +408,7 @@ $\mathbf{T}\mathbf{v} = \lambda\mathbf{v} \quad T_{jk} = \frac{\sin 2\pi W(j-k)}
 Dominant eigenvector of the sinc Toeplitz matrix — provably optimal energy concentration in a frequency band. Also called Slepian window. Thomson multitaper spectral estimation, neuroscience (EEG/MEG), climate science. Slepian 1978.
 
 
-#### `ultraspherical(i, N, mu, xmu)`
+### `ultraspherical(i, N, mu, xmu)`
 
 `mu`: 0 → Dolph-Chebyshev, **1** (default) → Saramaki. `xmu`: sidelobe control (default **1**).
 
