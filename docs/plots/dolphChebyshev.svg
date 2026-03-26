@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 190" width="560" height="190" style="font-family:system-ui,-apple-system,sans-serif">
-  <rect width="560" height="190" fill="#fafafa" rx="6"/>
+  <rect width="560" height="190" fill="none"/>
   <line x1="52" y1="152.0" x2="257" y2="152.0" stroke="#e5e7eb" stroke-width="0.5"/>
   <text x="48" y="155.0" text-anchor="end" font-size="7.5" fill="#6b7280">0</text>
   <line x1="52" y1="82.0" x2="257" y2="82.0" stroke="#e5e7eb" stroke-width="0.5"/>

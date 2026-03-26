@@ -48,7 +48,7 @@ for (let name of wins) {
 	let yTicks = tMax <= 1.1 ? [0, 0.5, 1] : Array.from({ length: yTop + 1 }, (_, i) => i)
 
 	let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="font-family:system-ui,-apple-system,sans-serif">\n`
-	svg += `  <rect width="${W}" height="${H}" fill="#fafafa" rx="6"/>\n`
+	svg += `  <rect width="${W}" height="${H}" fill="none"/>\n`
 
 	svg += panel(L, samples, 0, 1, 0, yTop, [0, 0.5, 1], yTicks, true)
 	svg += panel(R, db, 0, 0.5, -120, 0, [0, 0.1, 0.2, 0.3, 0.4, 0.5], [0, -40, -80, -120], false)
