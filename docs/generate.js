@@ -9,12 +9,12 @@ import { writeFileSync, mkdirSync } from 'node:fs'
 let N = 256, NFFT = 4096
 
 // Layout
-let W = 560, H = 210
-let L = { x: 52, y: 28, w: 205, h: 138 }   // left panel (time)
-let R = { x: 322, y: 28, w: 205, h: 138 }   // right panel (freq)
+let W = 560, H = 190
+let L = { x: 52, y: 12, w: 205, h: 140 }   // left panel (time)
+let R = { x: 322, y: 12, w: 205, h: 140 }   // right panel (freq)
 
 // Palette
-let CLR = '#4a90d9', GRID = '#e5e7eb', AXIS = '#d1d5db', TXT = '#6b7280', TITLE = '#374151'
+let CLR = '#4a90d9', GRID = '#e5e7eb', AXIS = '#d1d5db', TXT = '#6b7280'
 
 let wins = [
 	'rectangular', 'triangular', 'bartlett', 'welch', 'connes',
@@ -49,7 +49,6 @@ for (let name of wins) {
 
 	let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="font-family:system-ui,-apple-system,sans-serif">\n`
 	svg += `  <rect width="${W}" height="${H}" fill="#fafafa" rx="6"/>\n`
-	svg += `  <text x="${W / 2}" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="${TITLE}">${name}</text>\n`
 
 	svg += panel(L, samples, 0, 1, 0, yTop, [0, 0.5, 1], yTicks, true)
 	svg += panel(R, db, 0, 0.5, -120, 0, [0, 0.1, 0.2, 0.3, 0.4, 0.5], [0, -40, -80, -120], false)
