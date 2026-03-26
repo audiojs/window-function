@@ -26,10 +26,12 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 ```
 
 
-## Contents
+## Reference
 
-#### Simple
-
+<dl>
+<dt>Simple</dt>
+  <dd>
+    
 [rectangular](#rectangulari-n) ·
 [triangular](#triangulari-n) ·
 [bartlett](#bartletti-n) ·
@@ -49,8 +51,11 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 [parzen](#parzeni-n) ·
 [bohman](#bohmani-n)
 
-#### Parameterized
+</dd>
 
+<dt>Parameterized</dt>
+<dd>
+  
 [kaiser](#kaiseri-n-beta) ·
 [gaussian](#gaussiani-n-sigma) ·
 [generalizedNormal](#generalizednormali-n-sigma-p) ·
@@ -63,21 +68,19 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 [rifeVincent](#rifevincenti-n-order) ·
 [confinedGaussian](#confinedgaussiani-n-sigmat)
 
-#### Array-computed
+</dd>
 
+<dt>Array-computed_</dt>
+<dd>
+  
 [dolphChebyshev](#dolphchebyshevi-n-db) ·
 [taylor](#taylori-n-nbar-sll) ·
 [kaiserBesselDerived](#kaiserbesselderivedi-n-beta) ·
 [dpss](#dpssi-n-w) ·
 [ultraspherical](#ultrasphericali-n-mu-xmu)
 
-#### Other
-
-[Choosing a window](#choosing-a-window) ·
-[Metrics](#metrics) ·
-[Migrating from v2](#migrating-from-v2)
-
-
+</dd>
+</dl>
 
 ## Simple — no parameters
 
