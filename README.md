@@ -56,9 +56,9 @@ cola(hann, 1024, 512)           // → 0 (perfect STFT reconstruction at 50% ove
 
 ## Reference
 
-## Simple — no parameters
+### Simple — no parameters
 
-### `rectangular(i, N)`
+#### `rectangular(i, N)`
 
 $w(n) = 1$
 
@@ -69,7 +69,7 @@ No windowing at all. Best frequency resolution, worst spectral leakage. Use for 
 
 <br>
 
-### `triangular(i, N)`
+#### `triangular(i, N)`
 
 $w(n) = 1 - \left|\frac{2n - N + 1}{N}\right|$
 
@@ -80,7 +80,7 @@ Linear taper, nonzero endpoints. Simple smoothing, 2nd-order B-spline.
 
 <br>
 
-### `bartlett(i, N)`
+#### `bartlett(i, N)`
 
 $w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right|$
 
@@ -91,7 +91,7 @@ Linear taper, zero endpoints. Bartlett's method PSD estimation. Bartlett 1950.
 
 <br>
 
-### `welch(i, N)`
+#### `welch(i, N)`
 
 $w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2$
 
@@ -102,7 +102,7 @@ Parabolic taper. Welch's method PSD estimation. Welch 1967.
 
 <br>
 
-### `connes(i, N)`
+#### `connes(i, N)`
 
 $w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2$
 
@@ -113,7 +113,7 @@ Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodizatio
 
 <br>
 
-### `hann(i, N)`
+#### `hann(i, N)`
 
 $w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
@@ -124,7 +124,7 @@ Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50%
 
 <br>
 
-### `hamming(i, N)`
+#### `hamming(i, N)`
 
 $w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
@@ -135,7 +135,7 @@ Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR
 
 <br>
 
-### `cosine(i, N)`
+#### `cosine(i, N)`
 
 $w(n) = \sin\!\left(\frac{\pi n}{N-1}\right)$
 
@@ -146,7 +146,7 @@ Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis. Princen & Bradley 1987.
 
 <br>
 
-### `blackman(i, N)`
+#### `blackman(i, N)`
 
 $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
@@ -157,7 +157,7 @@ $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{
 
 <br>
 
-### `exactBlackman(i, N)`
+#### `exactBlackman(i, N)`
 
 $w(n) = 0.42659 - 0.49656\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.076849\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
@@ -168,7 +168,7 @@ Blackman with exact zero placement at 3rd and 4th sidelobes. Harris 1978.
 
 <br>
 
-### `nuttall(i, N)`
+#### `nuttall(i, N)`
 
 $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.012604\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
@@ -179,7 +179,7 @@ $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\
 
 <br>
 
-### `blackmanNuttall(i, N)`
+#### `blackmanNuttall(i, N)`
 
 $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.1365995\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.0106411\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
@@ -190,7 +190,7 @@ $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.13659
 
 <br>
 
-### `blackmanHarris(i, N)`
+#### `blackmanHarris(i, N)`
 
 $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.01168\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
@@ -201,7 +201,7 @@ $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos
 
 <br>
 
-### `flatTop(i, N)`
+#### `flatTop(i, N)`
 
 $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.388\cos\!\left(\frac{6\pi n}{N\!-\!1}\right) + 0.028\cos\!\left(\frac{8\pi n}{N\!-\!1}\right)$
 
@@ -212,7 +212,7 @@ $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\fra
 
 <br>
 
-### `bartlettHann(i, N)`
+#### `bartlettHann(i, N)`
 
 $w(n) = 0.62 - 0.48\left|\frac{n}{N\!-\!1} - 0.5\right| - 0.38\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
@@ -223,7 +223,7 @@ Bartlett-Hann hybrid. Balanced near/far sidelobe levels. Ha & Pearce 1989.
 
 <br>
 
-### `lanczos(i, N)`
+#### `lanczos(i, N)`
 
 $w(n) = \text{sinc}\!\left(\frac{2n}{N-1} - 1\right)$
 
@@ -234,7 +234,7 @@ Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick). Duchon 19
 
 <br>
 
-### `parzen(i, N)`
+#### `parzen(i, N)`
 
 $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.5$, &ensp; where $a = |{(2n-N+1)}/{(N-1)}|$
 
@@ -245,7 +245,7 @@ $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.
 
 <br>
 
-### `bohman(i, N)`
+#### `bohman(i, N)`
 
 $w(n) = (1-|a|)\cos(\pi|a|) + \frac{\sin(\pi|a|)}{\pi} \quad a = \frac{2n-N+1}{N-1}$
 
@@ -256,9 +256,9 @@ Autocorrelation of cosine window. Fast sidelobe decay, spectral estimation.
 
 <br>
 
-## Parameterized — adjustable tradeoff
+### Parameterized — adjustable tradeoff
 
-### `kaiser(i, N, beta)`
+#### `kaiser(i, N, beta)`
 
 `beta`: shape — 0 → rectangular, 5.4 → Hamming, **8.6** (default) → Blackman.
 
@@ -270,7 +270,7 @@ Near-optimal DPSS approximation via Bessel I₀. The standard parameterized wind
 
 <br>
 
-### `gaussian(i, N, sigma)`
+#### `gaussian(i, N, sigma)`
 
 `sigma`: width, default **0.4**.
 
@@ -282,7 +282,7 @@ Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency e
 
 <br>
 
-### `generalizedNormal(i, N, sigma, p)`
+#### `generalizedNormal(i, N, sigma, p)`
 
 `sigma`: width (default **0.4**), `p`: shape — 2 = Gaussian, →∞ = rectangular.
 
@@ -294,7 +294,7 @@ Continuous family between Gaussian and rectangular. Adjustable time-frequency tr
 
 <br>
 
-### `tukey(i, N, alpha)`
+#### `tukey(i, N, alpha)`
 
 `alpha`: taper fraction — 0 → rectangular, **0.5** (default), 1 → Hann.
 
@@ -306,7 +306,7 @@ Flat center with cosine-tapered edges. Preserves signal amplitude while tapering
 
 <br>
 
-### `planckTaper(i, N, epsilon)`
+#### `planckTaper(i, N, epsilon)`
 
 `epsilon`: taper fraction, default **0.1**.
 
@@ -316,7 +316,7 @@ C∞-smooth bump function (infinitely differentiable). Gravitational wave analys
 
 <br>
 
-### `powerOfSine(i, N, alpha)`
+#### `powerOfSine(i, N, alpha)`
 
 `alpha`: exponent — 0 → rectangular, 1 → cosine, **2** (default) → Hann.
 
@@ -328,7 +328,7 @@ sin^α family. Codec design, parameterized spectral analysis.
 
 <br>
 
-### `exponential(i, N, tau)`
+#### `exponential(i, N, tau)`
 
 `tau`: time constant, default **1**.
 
@@ -340,7 +340,7 @@ Exponential decay from center. Modal analysis, impact testing (compensates under
 
 <br>
 
-### `hannPoisson(i, N, alpha)`
+#### `hannPoisson(i, N, alpha)`
 
 `alpha`: decay — default **2**. At α ≥ 2, the transform has no sidelobes.
 
@@ -352,7 +352,7 @@ Hann × exponential product. Unique no-sidelobe property enables frequency estim
 
 <br>
 
-### `cauchy(i, N, alpha)`
+#### `cauchy(i, N, alpha)`
 
 `alpha`: width, default **3**.
 
@@ -364,7 +364,7 @@ Lorentzian 1/(1+x²) shape. Matches spectral line shapes in spectroscopy. Harris
 
 <br>
 
-### `rifeVincent(i, N, order)`
+#### `rifeVincent(i, N, order)`
 
 `order`: **1** (default) = Hann, 2, 3. Throws for other values.
 
@@ -376,7 +376,7 @@ Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis
 
 <br>
 
-### `confinedGaussian(i, N, sigmaT)`
+#### `confinedGaussian(i, N, sigmaT)`
 
 `sigmaT`: temporal width, default **0.1**.
 
@@ -386,11 +386,11 @@ Approximate confined Gaussian — optimal RMS time-frequency bandwidth. Time-fre
 
 <br>
 
-## Array-computed — cached
+### Array-computed — cached
 
 These compute the full window on first call and cache the result. Recomputed when N or parameters change.
 
-### `dolphChebyshev(i, N, dB)`
+#### `dolphChebyshev(i, N, dB)`
 
 `dB`: sidelobe attenuation, default **100**.
 
@@ -402,7 +402,7 @@ Optimal: narrowest main lobe for a given equiripple sidelobe level. Antenna arra
 
 <br>
 
-### `taylor(i, N, nbar, sll)`
+#### `taylor(i, N, nbar, sll)`
 
 `nbar`: number of constant-level sidelobes (default **4**), `sll`: sidelobe level in dB (default **30**).
 
@@ -414,7 +414,7 @@ Dolph-Chebyshev variant with monotonically decreasing sidelobes. The radar commu
 
 <br>
 
-### `kaiserBesselDerived(i, N, beta)`
+#### `kaiserBesselDerived(i, N, beta)`
 
 `beta`: shape, default **8.6**. N must be even.
 
@@ -426,7 +426,7 @@ Satisfies the Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vo
 
 <br>
 
-### `dpss(i, N, W)`
+#### `dpss(i, N, W)`
 
 `W`: half-bandwidth [0, 0.5], default **0.1**.
 
@@ -438,7 +438,7 @@ Dominant eigenvector of the sinc Toeplitz matrix — provably optimal energy con
 
 <br>
 
-### `ultraspherical(i, N, mu, xmu)`
+#### `ultraspherical(i, N, mu, xmu)`
 
 `mu`: 0 → Dolph-Chebyshev, **1** (default) → Saramaki. `xmu`: sidelobe control (default **1**).
 
