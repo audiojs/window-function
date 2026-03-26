@@ -31,7 +31,7 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 <dl>
 <dt>Simple</dt>
   <dd>
-    
+
 [rectangular](#rectangulari-n) ·
 [triangular](#triangulari-n) ·
 [bartlett](#bartletti-n) ·
@@ -55,7 +55,7 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 
 <dt>Parameterized</dt>
 <dd>
-  
+
 [kaiser](#kaiseri-n-beta) ·
 [gaussian](#gaussiani-n-sigma) ·
 [generalizedNormal](#generalizednormali-n-sigma-p) ·
@@ -70,9 +70,9 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 
 </dd>
 
-<dt>Array-computed_</dt>
+<dt>Array-computed</dt>
 <dd>
-  
+
 [dolphChebyshev](#dolphchebyshevi-n-db) ·
 [taylor](#taylori-n-nbar-sll) ·
 [kaiserBesselDerived](#kaiserbesselderivedi-n-beta) ·
