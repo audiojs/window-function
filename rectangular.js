@@ -1,7 +1,2 @@
-'use strict'
-
-function rectangular (i,N) {
-  return 1
-}
-
-module.exports = rectangular
+export default function rectangular () { return 1 }
+export { rectangular }

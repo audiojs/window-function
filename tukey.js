@@ -1,15 +1,10 @@
-'use strict'
-
-function tukey (i,N, alpha) {
-  var anm12 = 0.5*alpha*(N-1)
-
-  if( i <= anm12 ) {
-    return 0.5*(1+Math.cos(Math.PI*(i/anm12 - 1)))
-  } else if ( i < (N-1)*(1-0.5*alpha) ) {
-    return 1
-  } else {
-    return 0.5*(1+Math.cos(Math.PI*(i/anm12 - 2/alpha + 1)))
-  }
+import { cos, PI } from './util.js'
+export default function tukey (i, N, alpha) {
+	if (alpha == null) alpha = 0.5
+	let half = 0.5 * alpha * (N - 1)
+	if (half < 1e-12) return 1
+	if (i <= half) return 0.5 * (1 + cos(PI * (i / half - 1)))
+	if (i >= (N - 1) - half) return 0.5 * (1 + cos(PI * ((N - 1 - i) / half - 1)))
+	return 1
 }
-
-module.exports = tukey
+export { tukey }

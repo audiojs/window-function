@@ -1,30 +1,81 @@
 {
   "name": "window-function",
-  "version": "2.0.2",
-  "description": "Window functions for spectral analysis",
-  "main": "index.js",
+  "version": "3.0.0",
+  "type": "module",
+  "description": "Window functions for signal processing and spectral analysis",
+  "exports": {
+    ".": "./index.js",
+    "./rectangular": "./rectangular.js",
+    "./triangular": "./triangular.js",
+    "./bartlett": "./bartlett.js",
+    "./welch": "./welch.js",
+    "./connes": "./connes.js",
+    "./hann": "./hann.js",
+    "./hamming": "./hamming.js",
+    "./cosine": "./cosine.js",
+    "./blackman": "./blackman.js",
+    "./exactBlackman": "./exactBlackman.js",
+    "./nuttall": "./nuttall.js",
+    "./blackmanNuttall": "./blackmanNuttall.js",
+    "./blackmanHarris": "./blackmanHarris.js",
+    "./flatTop": "./flatTop.js",
+    "./bartlettHann": "./bartlettHann.js",
+    "./lanczos": "./lanczos.js",
+    "./parzen": "./parzen.js",
+    "./bohman": "./bohman.js",
+    "./powerOfSine": "./powerOfSine.js",
+    "./kaiser": "./kaiser.js",
+    "./gaussian": "./gaussian.js",
+    "./generalizedNormal": "./generalizedNormal.js",
+    "./tukey": "./tukey.js",
+    "./planckTaper": "./planckTaper.js",
+    "./exponential": "./exponential.js",
+    "./hannPoisson": "./hannPoisson.js",
+    "./cauchy": "./cauchy.js",
+    "./rifeVincent": "./rifeVincent.js",
+    "./confinedGaussian": "./confinedGaussian.js",
+    "./kaiserBesselDerived": "./kaiserBesselDerived.js",
+    "./dolphChebyshev": "./dolphChebyshev.js",
+    "./taylor": "./taylor.js",
+    "./dpss": "./dpss.js",
+    "./ultraspherical": "./ultraspherical.js",
+    "./util": "./util.js"
+  },
+  "types": "./index.d.ts",
+  "typesVersions": { "*": { "*": ["./index.d.ts"] } },
   "scripts": {
-    "test": "node test",
-    "generate-plots": "node docs/generate.js"
+    "test": "node --test test.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/scijs/window-function.git"
+    "url": "git://github.com/audiojs/window-function.git"
   },
+  "homepage": "https://github.com/audiojs/window-function",
   "keywords": [
-    "complex",
-    "scijs",
     "window-function",
-    "math",
-    "fourier",
+    "window",
+    "apodization",
+    "hann",
+    "hamming",
+    "blackman",
+    "kaiser",
+    "dpss",
     "spectral-analysis",
-    "dsp"
+    "fft",
+    "fft-window",
+    "dsp",
+    "signal-processing",
+    "stft"
   ],
   "author": "Ricky Reusser",
+  "contributors": [
+    "Dmitry Iv. <df.creative@gmail.com>"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "jshint": "^2.7.0",
-    "plotly": "^1.0.2",
-    "tape": "^4.9.1"
+    "fourier-transform": "^2.2.0"
   }
 }

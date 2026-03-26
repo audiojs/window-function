@@ -1,9 +1,2 @@
-'use strict'
-
-function welch (i,N) {
-  var nm12 = 0.5*(N-1),
-      f = (i - nm12)/nm12
-  return 1 - f*f
-}
-
-module.exports = welch
+export default function welch (i, N) { let x = (2 * i - N + 1) / (N - 1); return 1 - x * x }
+export { welch }

@@ -1,7 +1,3 @@
-'use strict'
-
-function triangular (i,N) {
-  return 1 - Math.abs( 2 * (i - 0.5*(N-1)) / N )
-}
-
-module.exports = triangular
+import { abs } from './util.js'
+export default function triangular (i, N) { return 1 - abs((2 * i - N + 1) / N) }
+export { triangular }

@@ -1,7 +1,3 @@
-'use strict'
-
-function cosine (i,N) {
-  return Math.sin(3.141592653589793*i/(N-1))
-}
-
-module.exports = cosine
+import { sin, PI } from './util.js'
+export default function cosine (i, N) { return sin(PI * i / (N - 1)) }
+export { cosine }

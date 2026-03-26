@@ -1,0 +1,4 @@
+docs/
+test.js
+.travis.yml
+.claude/

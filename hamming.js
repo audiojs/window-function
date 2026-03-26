@@ -1,7 +1,3 @@
-'use strict'
-
-function hamming (i,N) {
-  return 0.54 - 0.46 * Math.cos(6.283185307179586*i/(N-1))
-}
-
-module.exports = hamming
+import { cos, PI2 } from './util.js'
+export default function hamming (i, N) { return 0.54 - 0.46 * cos(PI2 * i / (N - 1)) }
+export { hamming }
