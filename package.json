@@ -39,11 +39,7 @@
     "./taylor": "./taylor.js",
     "./dpss": "./dpss.js",
     "./ultraspherical": "./ultraspherical.js",
-    "./generate": "./generate.js",
-    "./apply": "./apply.js",
-    "./enbw": "./enbw.js",
-    "./scallopLoss": "./scallopLoss.js",
-    "./cola": "./cola.js"
+    "./util": "./util.js"
   },
   "types": "./index.d.ts",
   "typesVersions": { "*": { "*": ["./index.d.ts"] } },

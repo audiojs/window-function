@@ -49,8 +49,4 @@ export { default as dpss } from './dpss.js'
 export { default as ultraspherical } from './ultraspherical.js'
 
 // Utilities
-export { default as generate } from './generate.js'
-export { default as apply } from './apply.js'
-export { default as enbw } from './enbw.js'
-export { default as scallopLoss } from './scallopLoss.js'
-export { default as cola } from './cola.js'
+export { generate, apply, enbw, scallopLoss, cola } from './util.js'
