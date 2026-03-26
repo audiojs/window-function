@@ -1,4 +1,4 @@
-# window-function [![test](https://github.com/audiojs/window-function/actions/workflows/test.yml/badge.svg)](https://github.com/audiojs/window-function/actions/workflows/test.yml) [![npm](https://img.shields.io/npm/v/window-function)](https://www.npmjs.com/package/window-function)
+# window-function [![test](https://github.com/audiojs/window-function/actions/workflows/test.yml/badge.svg)](https://github.com/audiojs/window-function/actions/workflows/test.yml) [![npm](https://img.shields.io/npm/v/window-function)](https://www.npmjs.com/package/window-function) [![license](https://img.shields.io/badge/license-MIT%20%C2%B7%20%E0%A5%90-white)](https://github.com/krishnized/license)
 
 Collection of window functions for signal processing and spectral analysis.
 
@@ -475,18 +475,9 @@ cola(hann, 1024, 512)            // 0 — perfect STFT reconstruction
 - **`scallopLoss(fn, N, ...params)`** — worst-case amplitude error in dB between DFT bins. Rectangular = 3.92, Hann = 1.42, flat-top ≈ 0.
 - **`cola(fn, N, hop, ...params)`** — COLA deviation. 0 = perfect STFT reconstruction at given hop size.
 
-## Migrating from v2
-
-v3 is ESM-only — `require()` no longer works. 18 → 34 windows, subpath imports preserved.
-
-```diff
-- const hann = require('window-function/hann')
-- const apply = require('window-function/apply')
-+ import hann from 'window-function/hann'
-+ import { generate, apply } from 'window-function/util'
-```
 
 The per-sample API `fn(i, N, ...params) → number` is unchanged.
+
 
 [^dolph1946]: C.L. Dolph, "A Current Distribution for Broadside Arrays," *Proc. IRE* 34, 1946.
 [^gabor1946]: D. Gabor, "Theory of Communication," *J. IEE* 93, 1946.
