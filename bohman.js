@@ -1,4 +1,4 @@
-import { abs, cos, sin, PI } from './_util.js'
+import { abs, cos, sin, PI } from './util.js'
 export default function bohman (i, N) {
 	let a = abs((2 * i - N + 1) / (N - 1))
 	if (a >= 1) return 0

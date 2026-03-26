@@ -1,4 +1,41 @@
-import { cos, sin, sqrt, abs, PI } from './_util.js'
+// ── Math shorthand ──
+
+export let { cos, sin, abs, exp, sqrt, PI, cosh, acosh, acos, pow, log10 } = Math
+export let PI2 = 2 * PI
+
+// ── Internal helpers (used by window functions) ──
+
+export function cosineSum (i, N, a) {
+	let f = PI2 * i / (N - 1), v = a[0]
+	for (let k = 1; k < a.length; k++) v += (k % 2 ? -1 : 1) * a[k] * cos(k * f)
+	return v
+}
+
+export function i0 (x) {
+	let s = 1, t = 1
+	for (let k = 1; k <= 25; k++) { t *= (x / (2 * k)) * (x / (2 * k)); s += t; if (t < 1e-15 * s) break }
+	return s
+}
+
+export function gegen (n, mu, x) {
+	if (n === 0) return 1
+	if (n === 1) return 2 * mu * x
+	let c0 = 1, c1 = 2 * mu * x
+	for (let k = 2; k <= n; k++) {
+		let c2 = (2 * x * (k + mu - 1) * c1 - (k + 2 * mu - 2) * c0) / k
+		c0 = c1; c1 = c2
+	}
+	return c1
+}
+
+export function normalize (w) {
+	let peak = 0
+	for (let i = 0; i < w.length; i++) if (abs(w[i]) > peak) peak = abs(w[i])
+	if (peak > 0) for (let i = 0; i < w.length; i++) w[i] /= peak
+	return w
+}
+
+// ── Public utilities ──
 
 /** Generate a full window as Float64Array. */
 export function generate (fn, N, ...params) {
@@ -24,7 +61,7 @@ export function enbw (fn, N, ...params) {
 export function scallopLoss (fn, N, ...params) {
 	let s = 0, re = 0, im = 0
 	for (let i = 0; i < N; i++) { let v = fn(i, N, ...params); s += v; re += v * cos(PI * i / N); im -= v * sin(PI * i / N) }
-	return s === 0 ? Infinity : -20 * Math.log10(sqrt(re * re + im * im) / abs(s))
+	return s === 0 ? Infinity : -20 * log10(sqrt(re * re + im * im) / abs(s))
 }
 
 /** COLA deviation. Returns max relative deviation from constant overlap-add sum; 0 = perfect. */

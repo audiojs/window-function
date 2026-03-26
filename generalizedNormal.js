@@ -1,4 +1,4 @@
-import { abs, exp, pow } from './_util.js'
+import { abs, exp, pow } from './util.js'
 export default function generalizedNormal (i, N, sigma, p) {
 	if (sigma == null) sigma = 0.4
 	if (p == null) p = 2

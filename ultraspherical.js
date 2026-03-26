@@ -1,4 +1,4 @@
-import { cos, PI, PI2, gegen, normalize } from './_util.js'
+import { cos, PI, PI2, gegen, normalize } from './util.js'
 export default function ultraspherical (i, N, mu, xmu) {
 	if (mu == null) mu = 1
 	if (xmu == null) xmu = 1

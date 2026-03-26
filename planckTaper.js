@@ -1,4 +1,4 @@
-import { exp } from './_util.js'
+import { exp } from './util.js'
 export default function planckTaper (i, N, epsilon) {
 	if (epsilon == null) epsilon = 0.1
 	let eN = epsilon * (N - 1)

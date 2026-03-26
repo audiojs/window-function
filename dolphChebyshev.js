@@ -1,4 +1,4 @@
-import { cos, abs, cosh, acosh, acos, pow, PI, PI2, normalize } from './_util.js'
+import { cos, abs, cosh, acosh, acos, pow, PI, PI2, normalize } from './util.js'
 export default function dolphChebyshev (i, N, attenuation) {
 	if (attenuation == null) attenuation = 100
 	let c = dolphChebyshev

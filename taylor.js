@@ -1,4 +1,4 @@
-import { cos, acosh, pow, PI, PI2, normalize } from './_util.js'
+import { cos, acosh, pow, PI, PI2, normalize } from './util.js'
 export default function taylor (i, N, nbar, sll) {
 	if (nbar == null) nbar = 4
 	if (sll == null) sll = 30

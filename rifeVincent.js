@@ -1,4 +1,4 @@
-import { cos, PI2 } from './_util.js'
+import { cos, PI2 } from './util.js'
 export default function rifeVincent (i, N, order) {
 	if (order == null) order = 1
 	let a

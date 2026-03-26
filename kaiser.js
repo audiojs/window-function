@@ -1,4 +1,4 @@
-import { sqrt, i0 } from './_util.js'
+import { sqrt, i0 } from './util.js'
 export default function kaiser (i, N, beta) {
 	if (beta == null) beta = 8.6
 	let x = (2 * i - N + 1) / (N - 1)
