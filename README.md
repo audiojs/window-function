@@ -62,7 +62,7 @@ cola(hann, 1024, 512)           // → 0 (perfect STFT reconstruction at 50% ove
 
 #### `rectangular(i, N)`
 
-$$w(n) = 1$$
+$w(n) = 1$
 
 <img src="docs/plots/rectangular.svg" width="560">
 
@@ -73,7 +73,7 @@ No windowing at all. Best frequency resolution, worst spectral leakage. Use for 
 
 #### `triangular(i, N)`
 
-$$w(n) = 1 - \left|\frac{2n - N + 1}{N}\right|$$
+$w(n) = 1 - \left|\frac{2n - N + 1}{N}\right|$
 
 <img src="docs/plots/triangular.svg" width="560">
 
@@ -84,7 +84,7 @@ Linear taper, nonzero endpoints. Simple smoothing, 2nd-order B-spline.
 
 #### `bartlett(i, N)`
 
-$$w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right|$$
+$w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right|$
 
 <img src="docs/plots/bartlett.svg" width="560">
 
@@ -95,7 +95,7 @@ Linear taper, zero endpoints. Bartlett's method PSD estimation. Bartlett 1950.
 
 #### `welch(i, N)`
 
-$$w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2$$
+$w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2$
 
 <img src="docs/plots/welch.svg" width="560">
 
@@ -106,7 +106,7 @@ Parabolic taper. Welch's method PSD estimation. Welch 1967.
 
 #### `connes(i, N)`
 
-$$w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2$$
+$w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2$
 
 <img src="docs/plots/connes.svg" width="560">
 
@@ -117,7 +117,7 @@ Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodizatio
 
 #### `hann(i, N)`
 
-$$w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right)$$
+$w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
 <img src="docs/plots/hann.svg" width="560">
 
@@ -128,7 +128,7 @@ Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50%
 
 #### `hamming(i, N)`
 
-$$w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right)$$
+$w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
 <img src="docs/plots/hamming.svg" width="560">
 
@@ -139,7 +139,7 @@ Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR
 
 #### `cosine(i, N)`
 
-$$w(n) = \sin\!\left(\frac{\pi n}{N-1}\right)$$
+$w(n) = \sin\!\left(\frac{\pi n}{N-1}\right)$
 
 <img src="docs/plots/cosine.svg" width="560">
 
@@ -150,7 +150,7 @@ Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis. Princen & Bradley 1987.
 
 #### `blackman(i, N)`
 
-$$w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{4\pi n}{N-1}\right)$$
+$w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
 <img src="docs/plots/blackman.svg" width="560">
 
@@ -161,7 +161,7 @@ $$w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac
 
 #### `exactBlackman(i, N)`
 
-$$w(n) = 0.42659 - 0.49656\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.076849\cos\!\left(\frac{4\pi n}{N-1}\right)$$
+$w(n) = 0.42659 - 0.49656\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.076849\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
 <img src="docs/plots/exactBlackman.svg" width="560">
 
@@ -172,7 +172,7 @@ Blackman with exact zero placement at 3rd and 4th sidelobes. Harris 1978.
 
 #### `nuttall(i, N)`
 
-$$w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.012604\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$$
+$w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.012604\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
 <img src="docs/plots/nuttall.svg" width="560">
 
@@ -183,7 +183,7 @@ $$w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232
 
 #### `blackmanNuttall(i, N)`
 
-$$w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.1365995\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.0106411\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$$
+$w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.1365995\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.0106411\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
 <img src="docs/plots/blackmanNuttall.svg" width="560">
 
@@ -194,7 +194,7 @@ $$w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.1365
 
 #### `blackmanHarris(i, N)`
 
-$$w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.01168\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$$
+$w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.01168\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
 <img src="docs/plots/blackmanHarris.svg" width="560">
 
@@ -205,7 +205,7 @@ $$w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\co
 
 #### `flatTop(i, N)`
 
-$$w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.388\cos\!\left(\frac{6\pi n}{N\!-\!1}\right) + 0.028\cos\!\left(\frac{8\pi n}{N\!-\!1}\right)$$
+$w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.388\cos\!\left(\frac{6\pi n}{N\!-\!1}\right) + 0.028\cos\!\left(\frac{8\pi n}{N\!-\!1}\right)$
 
 <img src="docs/plots/flatTop.svg" width="560">
 
@@ -216,7 +216,7 @@ $$w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\fr
 
 #### `bartlettHann(i, N)`
 
-$$w(n) = 0.62 - 0.48\left|\frac{n}{N\!-\!1} - 0.5\right| - 0.38\cos\!\left(\frac{2\pi n}{N-1}\right)$$
+$w(n) = 0.62 - 0.48\left|\frac{n}{N\!-\!1} - 0.5\right| - 0.38\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
 <img src="docs/plots/bartlettHann.svg" width="560">
 
@@ -227,7 +227,7 @@ Bartlett-Hann hybrid. Balanced near/far sidelobe levels. Ha & Pearce 1989.
 
 #### `lanczos(i, N)`
 
-$$w(n) = \operatorname{sinc}\!\left(\frac{2n}{N-1} - 1\right)$$
+$w(n) = \text{sinc}\!\left(\frac{2n}{N-1} - 1\right)$
 
 <img src="docs/plots/lanczos.svg" width="560">
 
@@ -238,7 +238,7 @@ Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick). Duchon 19
 
 #### `parzen(i, N)`
 
-$$w(n) = \begin{cases} 1 - 6a^2(1-a) & |a| \le 0.5 \\\ 2(1-a)^3 & |a| > 0.5 \end{cases} \quad a = \left|\frac{2n-N+1}{N-1}\right|$$
+$w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.5$, &ensp; where $a = |{(2n-N+1)}/{(N-1)}|$
 
 <img src="docs/plots/parzen.svg" width="560">
 
@@ -249,7 +249,7 @@ $$w(n) = \begin{cases} 1 - 6a^2(1-a) & |a| \le 0.5 \\\ 2(1-a)^3 & |a| > 0.5 \end
 
 #### `bohman(i, N)`
 
-$$w(n) = (1-|a|)\cos(\pi|a|) + \frac{\sin(\pi|a|)}{\pi} \quad a = \frac{2n-N+1}{N-1}$$
+$w(n) = (1-|a|)\cos(\pi|a|) + \frac{\sin(\pi|a|)}{\pi} \quad a = \frac{2n-N+1}{N-1}$
 
 <img src="docs/plots/bohman.svg" width="560">
 
@@ -266,7 +266,7 @@ Autocorrelation of cosine window. Fast sidelobe decay, spectral estimation.
 
 `beta`: shape — 0 → rectangular, 5.4 → Hamming, **8.6** (default) → Blackman.
 
-$$w(n) = \frac{I_0\!\left(\beta\sqrt{1 - \left(\frac{2n-N+1}{N-1}\right)^2}\right)}{I_0(\beta)}$$
+$w(n) = \frac{I_0\!\left(\beta\sqrt{1 - \left(\frac{2n-N+1}{N-1}\right)^2}\right)}{I_0(\beta)}$
 
 <img src="docs/plots/kaiser.svg" width="560">
 
@@ -278,7 +278,7 @@ Near-optimal DPSS approximation via Bessel I₀. The standard parameterized wind
 
 `sigma`: width, default **0.4**.
 
-$$w(n) = \exp\!\left[-\frac{1}{2}\left(\frac{2n-N+1}{\sigma(N-1)}\right)^2\right]$$
+$w(n) = \exp\!\left[-\frac{1}{2}\left(\frac{2n-N+1}{\sigma(N-1)}\right)^2\right]$
 
 <img src="docs/plots/gaussian.svg" width="560">
 
@@ -290,7 +290,7 @@ Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency e
 
 `sigma`: width (default **0.4**), `p`: shape — 2 = Gaussian, →∞ = rectangular.
 
-$$w(n) = \exp\!\left[-\frac{1}{2}\left|\frac{2n-N+1}{\sigma(N-1)}\right|^p\right]$$
+$w(n) = \exp\!\left[-\frac{1}{2}\left|\frac{2n-N+1}{\sigma(N-1)}\right|^p\right]$
 
 <img src="docs/plots/generalizedNormal.svg" width="560">
 
@@ -302,7 +302,7 @@ Continuous family between Gaussian and rectangular. Adjustable time-frequency tr
 
 `alpha`: taper fraction — 0 → rectangular, **0.5** (default), 1 → Hann.
 
-$$w(n) = \begin{cases} \frac{1}{2}\left[1+\cos\!\left(\pi\!\left(\frac{n}{\alpha(N\!-\!1)/2}-1\right)\right)\right] & n \le \frac{\alpha(N\!-\!1)}{2} \\\ 1 & \text{center} \\\ \text{symmetric} & n \ge N\!-\!1\!-\!\frac{\alpha(N\!-\!1)}{2} \end{cases}$$
+$w(n) = \tfrac{1}{2}[1+\cos(\pi(n/(\alpha(N\!-\!1)/2)-1))]$ in the tapered edges, $w(n) = 1$ in the flat center.
 
 <img src="docs/plots/tukey.svg" width="560">
 
@@ -324,7 +324,7 @@ C∞-smooth bump function (infinitely differentiable). Gravitational wave analys
 
 `alpha`: exponent — 0 → rectangular, 1 → cosine, **2** (default) → Hann.
 
-$$w(n) = \sin^\alpha\!\left(\frac{\pi n}{N-1}\right)$$
+$w(n) = \sin^\alpha\!\left(\frac{\pi n}{N-1}\right)$
 
 <img src="docs/plots/powerOfSine.svg" width="560">
 
@@ -336,7 +336,7 @@ sin^α family. Codec design, parameterized spectral analysis.
 
 `tau`: time constant, default **1**.
 
-$$w(n) = \exp\!\left(\frac{-|2n-N+1|}{\tau(N-1)}\right)$$
+$w(n) = \exp\!\left(\frac{-|2n-N+1|}{\tau(N-1)}\right)$
 
 <img src="docs/plots/exponential.svg" width="560">
 
@@ -348,7 +348,7 @@ Exponential decay from center. Modal analysis, impact testing (compensates under
 
 `alpha`: decay — default **2**. At α ≥ 2, the transform has no sidelobes.
 
-$$w(n) = \frac{1}{2}\left(1-\cos\frac{2\pi n}{N\!-\!1}\right)\exp\!\left(\frac{-\alpha|2n\!-\!N\!+\!1|}{N-1}\right)$$
+$w(n) = \frac{1}{2}\left(1-\cos\frac{2\pi n}{N\!-\!1}\right)\exp\!\left(\frac{-\alpha|2n\!-\!N\!+\!1|}{N-1}\right)$
 
 <img src="docs/plots/hannPoisson.svg" width="560">
 
@@ -360,7 +360,7 @@ Hann × exponential product. Unique no-sidelobe property enables frequency estim
 
 `alpha`: width, default **3**.
 
-$$w(n) = \frac{1}{1+\left(\frac{\alpha(2n-N+1)}{N-1}\right)^2}$$
+$w(n) = \frac{1}{1+\left(\frac{\alpha(2n-N+1)}{N-1}\right)^2}$
 
 <img src="docs/plots/cauchy.svg" width="560">
 
@@ -372,7 +372,7 @@ Lorentzian 1/(1+x²) shape. Matches spectral line shapes in spectroscopy. Harris
 
 `order`: **1** (default) = Hann, 2, 3. Throws for other values.
 
-$$w(n) = \frac{1}{Z}\sum_{k=0}^{K}(-1)^k a_k\cos\frac{2\pi kn}{N-1}$$
+$w(n) = \frac{1}{Z}\sum_{k=0}^{K}(-1)^k a_k\cos\frac{2\pi kn}{N-1}$
 
 <img src="docs/plots/rifeVincent.svg" width="560">
 
@@ -400,7 +400,7 @@ These compute the full window on first call and cache the result. Recomputed whe
 
 `dB`: sidelobe attenuation, default **100**.
 
-$$W(k) = (-1)^k T_{N-1}\!\left(\beta\cos\frac{\pi k}{N}\right),\quad w = \operatorname{IDFT}(W)$$
+$W(k) = (-1)^k T_{N-1}\!\left(\beta\cos\frac{\pi k}{N}\right),\quad w = \text{IDFT}(W)$
 
 <img src="docs/plots/dolphChebyshev.svg" width="560">
 
@@ -412,7 +412,7 @@ Optimal: narrowest main lobe for a given equiripple sidelobe level. Antenna arra
 
 `nbar`: number of constant-level sidelobes (default **4**), `sll`: sidelobe level in dB (default **30**).
 
-$$w(n) = 1 + 2\sum_{m=1}^{\bar{n}-1} F_m \cos\frac{2\pi m(n-(N\!-\!1)/2)}{N}$$
+$w(n) = 1 + 2\sum_{m=1}^{\bar{n}-1} F_m \cos\frac{2\pi m(n-(N\!-\!1)/2)}{N}$
 
 <img src="docs/plots/taylor.svg" width="560">
 
@@ -424,7 +424,7 @@ Dolph-Chebyshev variant with monotonically decreasing sidelobes. The radar commu
 
 `beta`: shape, default **8.6**. N must be even.
 
-$$w(n) = \sqrt{\frac{\sum_{j=0}^{n} K(j)}{\sum_{j=0}^{N/2} K(j)}} \quad K(j) = I_0\!\left(\beta\sqrt{1-\left(\frac{2j-N/2}{N/2}\right)^2}\right)$$
+$w(n) = \sqrt{\frac{\sum_{j=0}^{n} K(j)}{\sum_{j=0}^{N/2} K(j)}} \quad K(j) = I_0\!\left(\beta\sqrt{1-\left(\frac{2j-N/2}{N/2}\right)^2}\right)$
 
 <img src="docs/plots/kaiserBesselDerived.svg" width="560">
 
@@ -436,7 +436,7 @@ Satisfies the Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vo
 
 `W`: half-bandwidth [0, 0.5], default **0.1**.
 
-$$\mathbf{T}\mathbf{v} = \lambda\mathbf{v} \quad T_{jk} = \frac{\sin 2\pi W(j-k)}{\pi(j-k)}$$
+$\mathbf{T}\mathbf{v} = \lambda\mathbf{v} \quad T_{jk} = \frac{\sin 2\pi W(j-k)}{\pi(j-k)}$
 
 <img src="docs/plots/dpss.svg" width="560">
 
@@ -448,7 +448,7 @@ Dominant eigenvector of the sinc Toeplitz matrix — provably optimal energy con
 
 `mu`: 0 → Dolph-Chebyshev, **1** (default) → Saramaki. `xmu`: sidelobe control (default **1**).
 
-$$W(k) = C_n^\mu\!\left(x_\mu\cos\frac{\pi k}{N}\right),\quad w = \operatorname{IDFT}(W)$$
+$W(k) = C_n^\mu\!\left(x_\mu\cos\frac{\pi k}{N}\right),\quad w = \text{IDFT}(W)$
 
 <img src="docs/plots/ultraspherical.svg" width="560">
 
