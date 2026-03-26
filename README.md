@@ -1,4 +1,4 @@
-# window-function
+# window-function [![test](https://github.com/audiojs/window-function/actions/workflows/test.yml/badge.svg)](https://github.com/audiojs/window-function/actions/workflows/test.yml)
 
 Collection of window functions for signal processing and spectral analysis.
 
@@ -497,4 +497,4 @@ cola(hann, 1024, 512)            // 0 — perfect STFT reconstruction
 [^mckechan2010]: D.J.A. McKechan et al., "A Tapering Window for Time-Domain Templates," *Class. Quantum Grav.* 27, 2010.
 [^starosielec2014]: S. Starosielec & D. Hagemeier, "Discrete-Time Windows with Minimal RMS Bandwidth," *Signal Processing* 102, 2014.
 
-<p align=center>MIT · <a href="https://github.com/krishnized/license/">ॐ</a></p>
+<!-- <p align=center>MIT · <a href="https://github.com/krishnized/license/">ॐ</a></p> -->
