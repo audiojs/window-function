@@ -7,3 +7,4 @@ export default function tukey (i, N, alpha) {
 	if (i >= (N - 1) - half) return 0.5 * (1 + cos(PI * ((N - 1 - i) / half - 1)))
 	return 1
 }
+export { tukey }

@@ -4,3 +4,4 @@ export default function bohman (i, N) {
 	if (a >= 1) return 0
 	return (1 - a) * cos(PI * a) + sin(PI * a) / PI
 }
+export { bohman }

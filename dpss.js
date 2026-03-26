@@ -26,3 +26,4 @@ export default function dpss (i, N, W) {
 	}
 	return c._w[i]
 }
+export { dpss }

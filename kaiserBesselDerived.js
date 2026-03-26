@@ -1,6 +1,7 @@
 import { sqrt, abs, i0 } from './util.js'
 export default function kaiserBesselDerived (i, N, beta) {
 	if (beta == null) beta = 8.6
+	if (N % 2 !== 0) throw new RangeError('kaiserBesselDerived: N must be even')
 	let c = kaiserBesselDerived
 	if (c._N !== N || c._b !== beta) {
 		let h = N / 2, k = new Float64Array(h + 1), s = 0
@@ -13,3 +14,4 @@ export default function kaiserBesselDerived (i, N, beta) {
 	}
 	return c._w[i]
 }
+export { kaiserBesselDerived }

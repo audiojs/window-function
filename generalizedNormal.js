@@ -5,3 +5,4 @@ export default function generalizedNormal (i, N, sigma, p) {
 	let x = abs((2 * i - N + 1) / (sigma * (N - 1)))
 	return exp(-0.5 * pow(x, p))
 }
+export { generalizedNormal }

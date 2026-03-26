@@ -51,9 +51,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/scijs/window-function.git"
+    "url": "git://github.com/audiojs/window-function.git"
   },
-  "homepage": "https://github.com/scijs/window-function",
+  "homepage": "https://github.com/audiojs/window-function",
   "keywords": [
     "window-function",
     "window",

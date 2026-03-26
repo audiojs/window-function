@@ -7,3 +7,4 @@ export default function planckTaper (i, N, epsilon) {
 	if (i > (N - 1) - eN) return 1 / (1 + exp(eN / (N - 1 - i) - eN / (eN - N + 1 + i)))
 	return 1
 }
+export { planckTaper }

@@ -9,7 +9,7 @@ npm install window-function
 ```js
 // Import everything, or just what you need
 import { hann, kaiser, generate, apply } from 'window-function'
-import { hann } from 'window-function/hann'
+import hann from 'window-function/hann'
 
 // Every window: fn(i, N, ...params) → number
 hann(50, 101)                    // single sample → 1.0
@@ -88,7 +88,7 @@ generate(kaiser, 1024, 8.6)     // Kaiser with β = 8.6
 
 $w(n) = 1$
 
-<img src="docs/plots/rectangular.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/rectangular.svg">
 
 No windowing. Best frequency resolution, worst spectral leakage. Use for transient signals already zero at edges, or harmonic analysis with integer cycles.
 **-13 dB** sidelobe · **-6 dB/oct** rolloff
@@ -97,7 +97,7 @@ No windowing. Best frequency resolution, worst spectral leakage. Use for transie
 
 $w(n) = 1 - \left|\frac{2n - N + 1}{N}\right|$
 
-<img src="docs/plots/triangular.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/triangular.svg">
 
 Linear taper, nonzero endpoints. Simple smoothing, 2nd-order B-spline.
 **-27 dB** sidelobe · **-12 dB/oct** rolloff
@@ -106,7 +106,7 @@ Linear taper, nonzero endpoints. Simple smoothing, 2nd-order B-spline.
 
 $w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right|$
 
-<img src="docs/plots/bartlett.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/bartlett.svg">
 
 Linear taper, zero endpoints. Bartlett's method PSD estimation.[^bartlett1950]
 **-27 dB** sidelobe · **-12 dB/oct** rolloff
@@ -115,7 +115,7 @@ Linear taper, zero endpoints. Bartlett's method PSD estimation.[^bartlett1950]
 
 $w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2$
 
-<img src="docs/plots/welch.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/welch.svg">
 
 Parabolic taper. Welch's method PSD estimation.[^welch1967]
 **-21 dB** sidelobe · **-12 dB/oct** rolloff
@@ -124,7 +124,7 @@ Parabolic taper. Welch's method PSD estimation.[^welch1967]
 
 $w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2$
 
-<img src="docs/plots/connes.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/connes.svg">
 
 Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodization.[^connes1961]
 **-24 dB/oct** rolloff
@@ -133,7 +133,7 @@ Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodizatio
 
 $w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
-<img src="docs/plots/hann.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/hann.svg">
 
 Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50% overlap (COLA). Also called "Hanning" (misnomer).[^blackman1958]
 **-32 dB** sidelobe · **-18 dB/oct** rolloff
@@ -142,7 +142,7 @@ Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50%
 
 $w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
-<img src="docs/plots/hamming.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/hamming.svg">
 
 Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR filter design, speech processing.[^hamming1977]
 **-43 dB** sidelobe · **-6 dB/oct** rolloff
@@ -151,7 +151,7 @@ Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR
 
 $w(n) = \sin\!\left(\frac{\pi n}{N-1}\right)$
 
-<img src="docs/plots/cosine.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/cosine.svg">
 
 Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis.[^princen1987]
 **-23 dB** sidelobe · **-12 dB/oct** rolloff
@@ -160,7 +160,7 @@ Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis.[^princen1987]
 
 $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
-<img src="docs/plots/blackman.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/blackman.svg">
 
 3-term cosine sum. Better leakage than Hann at the cost of wider main lobe.[^blackman1958]
 **-58 dB** sidelobe · **-18 dB/oct** rolloff
@@ -169,7 +169,7 @@ $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{
 
 $w(n) = 0.42659 - 0.49656\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.076849\cos\!\left(\frac{4\pi n}{N-1}\right)$
 
-<img src="docs/plots/exactBlackman.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/exactBlackman.svg">
 
 Blackman with exact zero placement at 3rd and 4th sidelobes.[^harris1978]
 **-69 dB** sidelobe · **-6 dB/oct** rolloff
@@ -178,7 +178,7 @@ Blackman with exact zero placement at 3rd and 4th sidelobes.[^harris1978]
 
 $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.012604\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
-<img src="docs/plots/nuttall.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/nuttall.svg">
 
 4-term cosine sum, continuous 1st derivative. High-dynamic-range analysis without edge discontinuity.[^nuttall1981]
 **-93 dB** sidelobe · **-18 dB/oct** rolloff
@@ -187,7 +187,7 @@ $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\
 
 $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.1365995\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.0106411\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
-<img src="docs/plots/blackmanNuttall.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/blackmanNuttall.svg">
 
 4-term cosine sum, lowest sidelobes among 4-term windows.[^nuttall1981]
 **-98 dB** sidelobe · **-6 dB/oct** rolloff
@@ -196,7 +196,7 @@ $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.13659
 
 $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.01168\cos\!\left(\frac{6\pi n}{N\!-\!1}\right)$
 
-<img src="docs/plots/blackmanHarris.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/blackmanHarris.svg">
 
 4-term minimum sidelobe. ADC testing, measurement instrumentation, >80 dB dynamic range.[^harris1978]
 **-92 dB** sidelobe · **-6 dB/oct** rolloff
@@ -205,7 +205,7 @@ $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos
 
 $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\frac{4\pi n}{N\!-\!1}\right) - 0.388\cos\!\left(\frac{6\pi n}{N\!-\!1}\right) + 0.028\cos\!\left(\frac{8\pi n}{N\!-\!1}\right)$
 
-<img src="docs/plots/flatTop.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/flatTop.svg">
 
 5-term cosine sum, near-zero scalloping. Peak ~4.64 (by design). Amplitude calibration, transducer calibration (~0.01 dB accuracy). ISO 18431.[^heinzel2002]
 **-93 dB** sidelobe · **-6 dB/oct** rolloff
@@ -214,7 +214,7 @@ $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\fra
 
 $w(n) = 0.62 - 0.48\left|\frac{n}{N\!-\!1} - 0.5\right| - 0.38\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
-<img src="docs/plots/bartlettHann.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/bartlettHann.svg">
 
 Bartlett-Hann hybrid. Balanced near/far sidelobe levels.[^ha1989]
 **-36 dB** sidelobe
@@ -223,7 +223,7 @@ Bartlett-Hann hybrid. Balanced near/far sidelobe levels.[^ha1989]
 
 $w(n) = \text{sinc}\!\left(\frac{2n}{N-1} - 1\right)$
 
-<img src="docs/plots/lanczos.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/lanczos.svg">
 
 Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick).[^duchon1979]
 **-26 dB** sidelobe
@@ -232,7 +232,7 @@ Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick).[^duchon19
 
 $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.5$, &ensp; $a = |(2n-N+1)/(N-1)|$
 
-<img src="docs/plots/parzen.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/parzen.svg">
 
 4th-order B-spline. Always-positive spectrum. Kernel density estimation.[^parzen1961]
 **-53 dB** sidelobe · **-24 dB/oct** rolloff
@@ -241,7 +241,7 @@ $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.
 
 $w(n) = (1-|a|)\cos(\pi|a|) + \frac{\sin(\pi|a|)}{\pi}$, &ensp; $a = \frac{2n-N+1}{N-1}$
 
-<img src="docs/plots/bohman.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/bohman.svg">
 
 Autocorrelation of cosine window. Fast sidelobe decay, spectral estimation.
 **-46 dB** sidelobe · **-24 dB/oct** rolloff
@@ -256,7 +256,7 @@ Autocorrelation of cosine window. Fast sidelobe decay, spectral estimation.
 
 $w(n) = \frac{I_0\!\left(\beta\sqrt{1 - \left(\frac{2n-N+1}{N-1}\right)^2}\right)}{I_0(\beta)}$
 
-<img src="docs/plots/kaiser.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/kaiser.svg">
 
 Near-optimal DPSS approximation via Bessel I₀. The standard parameterized window for FIR filter design.[^kaiser1974]
 
@@ -266,7 +266,7 @@ Near-optimal DPSS approximation via Bessel I₀. The standard parameterized wind
 
 $w(n) = \exp\!\left[-\frac{1}{2}\left(\frac{2n-N+1}{\sigma(N-1)}\right)^2\right]$
 
-<img src="docs/plots/gaussian.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/gaussian.svg">
 
 Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency estimation via parabolic interpolation.[^gabor1946]
 
@@ -276,7 +276,7 @@ Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency e
 
 $w(n) = \exp\!\left[-\frac{1}{2}\left|\frac{2n-N+1}{\sigma(N-1)}\right|^p\right]$
 
-<img src="docs/plots/generalizedNormal.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/generalizedNormal.svg">
 
 Continuous family between Gaussian and rectangular. Adjustable time-frequency tradeoff.
 
@@ -286,7 +286,7 @@ Continuous family between Gaussian and rectangular. Adjustable time-frequency tr
 
 $w(n) = \tfrac{1}{2}[1+\cos(\pi(n/(\alpha(N\!-\!1)/2)-1))]$ in tapered edges, &ensp; $w(n) = 1$ in flat center.
 
-<img src="docs/plots/tukey.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/tukey.svg">
 
 Flat center with cosine-tapered edges. Preserves signal amplitude while tapering. Vibration analysis, LIGO.
 
@@ -294,7 +294,7 @@ Flat center with cosine-tapered edges. Preserves signal amplitude while tapering
 
 `epsilon`: taper fraction, default **0.1**.
 
-<img src="docs/plots/planckTaper.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/planckTaper.svg">
 
 C∞-smooth bump function (infinitely differentiable). Gravitational wave analysis (LIGO/Virgo).[^mckechan2010]
 
@@ -304,7 +304,7 @@ C∞-smooth bump function (infinitely differentiable). Gravitational wave analys
 
 $w(n) = \sin^\alpha\!\left(\frac{\pi n}{N-1}\right)$
 
-<img src="docs/plots/powerOfSine.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/powerOfSine.svg">
 
 sin^α family. Codec design, parameterized spectral analysis.
 
@@ -314,7 +314,7 @@ sin^α family. Codec design, parameterized spectral analysis.
 
 $w(n) = \exp\!\left(\frac{-|2n-N+1|}{\tau(N-1)}\right)$
 
-<img src="docs/plots/exponential.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/exponential.svg">
 
 Exponential decay from center. Modal analysis, impact testing.[^harris1978]
 
@@ -324,7 +324,7 @@ Exponential decay from center. Modal analysis, impact testing.[^harris1978]
 
 $w(n) = \frac{1}{2}\left(1-\cos\frac{2\pi n}{N\!-\!1}\right)\exp\!\left(\frac{-\alpha|2n\!-\!N\!+\!1|}{N-1}\right)$
 
-<img src="docs/plots/hannPoisson.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/hannPoisson.svg">
 
 Hann × exponential. Unique no-sidelobe property enables frequency estimators using convex optimization.
 
@@ -334,7 +334,7 @@ Hann × exponential. Unique no-sidelobe property enables frequency estimators us
 
 $w(n) = \frac{1}{1+\left(\frac{\alpha(2n-N+1)}{N-1}\right)^2}$
 
-<img src="docs/plots/cauchy.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/cauchy.svg">
 
 Lorentzian shape. Matches spectral line shapes in spectroscopy.[^harris1978]
 
@@ -344,7 +344,7 @@ Lorentzian shape. Matches spectral line shapes in spectroscopy.[^harris1978]
 
 $w(n) = \frac{1}{Z}\sum_{k=0}^{K}(-1)^k a_k\cos\frac{2\pi kn}{N-1}$
 
-<img src="docs/plots/rifeVincent.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/rifeVincent.svg">
 
 Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis, interpolated DFT.[^rife1970]
 
@@ -352,7 +352,7 @@ Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis
 
 `sigmaT`: temporal width, default **0.1**.
 
-<img src="docs/plots/confinedGaussian.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/confinedGaussian.svg">
 
 Optimal RMS time-frequency bandwidth. Time-frequency analysis, audio coding.[^starosielec2014]
 
@@ -368,7 +368,7 @@ Compute the full window on first call, cache the result. Recomputed when paramet
 
 $W(k) = (-1)^k T_{N-1}\!\left(\beta\cos\frac{\pi k}{N}\right)$, &ensp; $w = \text{IDFT}(W)$
 
-<img src="docs/plots/dolphChebyshev.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/dolphChebyshev.svg">
 
 Optimal: narrowest main lobe for given equiripple sidelobe level. Antenna design, radar.[^dolph1946]
 
@@ -378,7 +378,7 @@ Optimal: narrowest main lobe for given equiripple sidelobe level. Antenna design
 
 $w(n) = 1 + 2\sum_{m=1}^{\bar{n}-1} F_m \cos\frac{2\pi m(n-(N\!-\!1)/2)}{N}$
 
-<img src="docs/plots/taylor.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/taylor.svg">
 
 Monotonically decreasing sidelobes. The radar community standard for SAR image formation.[^taylor1955]
 
@@ -388,7 +388,7 @@ Monotonically decreasing sidelobes. The radar community standard for SAR image f
 
 $w(n) = \sqrt{\frac{\sum_{j=0}^{n} K(j)}{\sum_{j=0}^{N/2} K(j)}}$, &ensp; $K(j) = I_0\!\left(\beta\sqrt{1-\left(\frac{2j-N/2}{N/2}\right)^2}\right)$
 
-<img src="docs/plots/kaiserBesselDerived.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/kaiserBesselDerived.svg">
 
 Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vorbis, Opus audio codecs.[^princen1987]
 
@@ -398,7 +398,7 @@ Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vorbis, Opus aud
 
 $\mathbf{T}\mathbf{v} = \lambda\mathbf{v}$, &ensp; $T_{jk} = \frac{\sin 2\pi W(j-k)}{\pi(j-k)}$
 
-<img src="docs/plots/dpss.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/dpss.svg">
 
 Dominant eigenvector of sinc Toeplitz matrix — provably optimal energy concentration. Also called Slepian window. Multitaper spectral estimation, neuroscience, climate science.[^slepian1978]
 
@@ -408,7 +408,7 @@ Dominant eigenvector of sinc Toeplitz matrix — provably optimal energy concent
 
 $W(k) = C_n^\mu\!\left(x_\mu\cos\frac{\pi k}{N}\right)$, &ensp; $w = \text{IDFT}(W)$
 
-<img src="docs/plots/ultraspherical.svg">
+<img src="https://raw.githubusercontent.com/audiojs/window-function/master/docs/plots/ultraspherical.svg">
 
 Gegenbauer polynomial window. Independent control of sidelobe level and taper rate. Antenna design, beamforming.[^streit1984]
 
@@ -474,6 +474,19 @@ cola(hann, 1024, 512)            // 0 — perfect STFT reconstruction
 - **`enbw(fn, N, ...params)`** — equivalent noise bandwidth in frequency bins. Rectangular = 1.0, Hann = 1.5, Blackman-Harris = 2.0. Lower = less noise.
 - **`scallopLoss(fn, N, ...params)`** — worst-case amplitude error in dB between DFT bins. Rectangular = 3.92, Hann = 1.42, flat-top ≈ 0.
 - **`cola(fn, N, hop, ...params)`** — COLA deviation. 0 = perfect STFT reconstruction at given hop size.
+
+## Migrating from v2
+
+v3 is ESM-only — `require()` no longer works. 18 → 34 windows, subpath imports preserved.
+
+```diff
+- const hann = require('window-function/hann')
+- const apply = require('window-function/apply')
++ import hann from 'window-function/hann'
++ import { generate, apply } from 'window-function/util'
+```
+
+The per-sample API `fn(i, N, ...params) → number` is unchanged.
 
 [^dolph1946]: C.L. Dolph, "A Current Distribution for Broadside Arrays," *Proc. IRE* 34, 1946.
 [^gabor1946]: D. Gabor, "Theory of Communication," *J. IEE* 93, 1946.

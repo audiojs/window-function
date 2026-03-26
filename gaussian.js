@@ -4,3 +4,4 @@ export default function gaussian (i, N, sigma) {
 	let x = (2 * i - N + 1) / (sigma * (N - 1))
 	return exp(-0.5 * x * x)
 }
+export { gaussian }

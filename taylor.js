@@ -25,3 +25,4 @@ export default function taylor (i, N, nbar, sll) {
 	}
 	return c._w[i]
 }
+export { taylor }

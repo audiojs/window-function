@@ -11,3 +11,4 @@ export default function rifeVincent (i, N, order) {
 	let peak = a.reduce((s, c) => s + c, 0)
 	return v / peak
 }
+export { rifeVincent }

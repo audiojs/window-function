@@ -6,3 +6,4 @@ export default function confinedGaussian (i, N, sigmaT) {
 	let gn = G(i), gh = G(-0.5)
 	return gn - gh * (G(i + L) + G(i - L)) / (G(-0.5 + L) + G(-0.5 - L))
 }
+export { confinedGaussian }

@@ -20,3 +20,4 @@ export default function dolphChebyshev (i, N, attenuation) {
 	}
 	return c._w[i]
 }
+export { dolphChebyshev }
