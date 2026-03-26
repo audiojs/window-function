@@ -5,18 +5,21 @@ export let PI2 = 2 * PI
 
 // ── Internal helpers (used by window functions) ──
 
+/** Cosine-sum: w(i) = Σ (-1)^k aₖ cos(2πki/(N-1)). Used by blackman, nuttall, etc. */
 export function cosineSum (i, N, a) {
 	let f = PI2 * i / (N - 1), v = a[0]
 	for (let k = 1; k < a.length; k++) v += (k % 2 ? -1 : 1) * a[k] * cos(k * f)
 	return v
 }
 
+/** Modified Bessel function of the first kind, order 0. Used by kaiser, kaiserBesselDerived. */
 export function i0 (x) {
 	let s = 1, t = 1
 	for (let k = 1; k <= 25; k++) { t *= (x / (2 * k)) * (x / (2 * k)); s += t; if (t < 1e-15 * s) break }
 	return s
 }
 
+/** Gegenbauer (ultraspherical) polynomial C_n^mu(x) via recurrence. Used by ultraspherical. */
 export function gegen (n, mu, x) {
 	if (n === 0) return 1
 	if (n === 1) return 2 * mu * x
@@ -28,6 +31,7 @@ export function gegen (n, mu, x) {
 	return c1
 }
 
+/** Normalize array to peak absolute value of 1. Used by array-computed windows. */
 export function normalize (w) {
 	let peak = 0
 	for (let i = 0; i < w.length; i++) if (abs(w[i]) > peak) peak = abs(w[i])
