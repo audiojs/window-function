@@ -60,3 +60,4 @@ Desktop.ini
 
 # Compiled MEX binaries (all platforms)
 *.mex*
+/.claude

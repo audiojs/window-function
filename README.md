@@ -1,197 +1,285 @@
 # window-function
 
-[![Build Status](https://travis-ci.org/scijs/window-function.svg?branch=master)](https://travis-ci.org/scijs/window-function) [![npm version](https://badge.fury.io/js/window-function.svg)](http://badge.fury.io/js/window-function)  [![Dependency Status](https://david-dm.org/scijs/window-function.svg)](https://david-dm.org/scijs/window-function)
+Complete, encyclopedic collection of window functions for signal processing and spectral analysis.
+
+**34 window functions** in a single file. Zero dependencies. Pure ESM.
+
+Covers every window function in scipy.signal.windows, MATLAB Signal Processing Toolbox, Harris (1978) "On the Use of Windows for Harmonic Analysis with the DFT", and the Wikipedia "Window function" article — plus scientific niche windows used in FTIR spectroscopy (Connes), gravitational wave detection (Planck-taper), audio codecs (KBD), multitaper estimation (DPSS), antenna design (Ultraspherical), and time-frequency optimization (Confined Gaussian).
 
 
-Window functions for digital signal processing
+## Why so many windows?
 
-# Introduction
+Every window is a tradeoff. You can optimize for:
 
-Among other uses, [window functions](http://en.wikipedia.org/wiki/Window_function) help control [spectral leakage](http://en.wikipedia.org/wiki/Spectral_leakage) when doing Fourier Analysis. This collection of window functions is copied directly from Wikipedia. Caveat emptor.
+- **Frequency resolution** — narrow main lobe, distinguish close frequencies
+- **Spectral leakage** — low sidelobes, weak signals aren't masked by strong ones
+- **Amplitude accuracy** — flat main lobe top, measured amplitudes are correct
+
+No single window optimizes all three. The rectangular window has the best resolution but worst leakage (-13 dB). The flat-top has the best amplitude accuracy but worst resolution. The Hann window is the go-to general-purpose compromise. Everything else exists because different measurement contexts shift the tradeoff.
 
 ## Usage
 
-Apply window to a signal:
+```js
+import { hann, kaiser, generate, apply } from 'window-function'
 
-```javascript
-var blackmanHarris = require('window-function/blackman-harris')
-var applyWindow = require('window-function/apply')
-
-var signal = [-1, 0, 1, 0, -1, 0]
-
-var windowedSignal = applyWindow(signal, blackmanHarris)
+hann(50, 101)                   // → 1.0 (single sample)
+generate(hann, 1024)            // → Float64Array(1024)
+generate(kaiser, 1024, 8.6)    // → parameterized window
+apply(signal, kaiser, 8.6)     // → signal, windowed in-place
 ```
 
-Apply the window functions yourself:
+Compare windows quantitatively:
 
-```javascript
-var wfuncs = require('window-function')
+```js
+import { hann, blackmanHarris, enbw, scallopLoss, cola } from 'window-function'
 
-var value = wfuncs.blackmanHarris( 50, 101 )
+enbw(hann, 1024)                // → 1.5 (noise bandwidth in bins)
+scallopLoss(hann, 1024)         // → 1.42 dB (worst-case amplitude error)
+cola(hann, 1024, 512)           // → 0 (perfect STFT reconstruction at 50% overlap)
 ```
 
 ## API
 
-### `require('window-funciton/<type>')(i, total)`
+Every window: `fn(i, N, ...params) → number` — sample `i` of window length `N`.
+
+| Function | Parameters | Returns |
+|---|---|---|
+| `generate(fn, N, ...params)` | window function, length, params | `Float64Array` |
+| `apply(signal, fn, ...params)` | signal array, window function, params | `signal` (modified) |
+| `enbw(fn, N, ...params)` | window function, length, params | Equivalent noise bandwidth (bins) |
+| `scallopLoss(fn, N, ...params)` | window function, length, params | Worst-case amplitude error (dB) |
+| `cola(fn, N, hop, ...params)` | window function, length, hop, params | COLA deviation (0 = perfect) |
+
+## Complete Window Reference
+
+### Simple — no parameters
+
+| Window | Peak sidelobe | Rolloff | What it does | When to use |
+|---|---|---|---|---|
+| `rectangular` | -13 dB | -6 dB/oct | No windowing at all | Transient signals already zero at edges; harmonic analysis with integer cycles |
+| `triangular` | -27 dB | -12 dB/oct | Linear taper, nonzero endpoints | Simple smoothing, 2nd-order B-spline |
+| `bartlett` | -27 dB | -12 dB/oct | Linear taper, zero endpoints | Bartlett's method PSD estimation. Bartlett 1950 |
+| `welch` | -21 dB | -12 dB/oct | Parabolic taper | Welch's method PSD estimation. Welch 1967 |
+| `connes` | — | -24 dB/oct | Welch squared (4th power parabolic) | FTIR spectroscopy, interferogram apodization. Connes 1961 |
+| `hann` | -32 dB | -18 dB/oct | Raised cosine, zero endpoints | General-purpose spectral analysis, STFT with 50% overlap (COLA). The default choice. Blackman & Tukey 1958 |
+| `hamming` | -43 dB | -6 dB/oct | Raised cosine, nonzero endpoints | FIR filter design (window method), speech processing. Hamming 1977 |
+| `cosine` | -23 dB | -12 dB/oct | Half-period sine | MDCT audio codecs: MP3, AAC, Vorbis. Princen & Bradley 1987 |
+| `blackman` | -58 dB | -18 dB/oct | 3-term cosine sum | Spectral analysis needing better leakage than Hann. Blackman & Tukey 1958 |
+| `exactBlackman` | -69 dB | -6 dB/oct | Blackman with exact zero placement | Precision analysis, zeros at 3rd/4th sidelobes. Harris 1978 |
+| `nuttall` | -93 dB | -18 dB/oct | 4-term, continuous 1st derivative | High-dynamic-range analysis without edge discontinuity. Nuttall 1981 |
+| `blackmanNuttall` | -98 dB | -6 dB/oct | 4-term, lowest sidelobes | Maximum sidelobe suppression among 4-term windows. Nuttall 1981 |
+| `blackmanHarris` | -92 dB | -6 dB/oct | 4-term, minimum sidelobe | ADC testing, measurement instrumentation, >80 dB dynamic range. Harris 1978 |
+| `flatTop` | -93 dB | -6 dB/oct | 5-term, near-zero scalloping. Peak ~4.64 | Amplitude calibration, transducer calibration (~0.01 dB accuracy). ISO 18431. Heinzel 2002 |
+| `bartlettHann` | -36 dB | — | Bartlett × Hann hybrid | Balanced near/far sidelobe levels. Ha & Pearce 1989 |
+| `lanczos` | -26 dB | — | Sinc main lobe | Image resampling, interpolation (FFmpeg, ImageMagick). Duchon 1979 |
+| `parzen` | -53 dB | -24 dB/oct | 4th-order B-spline | Kernel density estimation, always-positive spectrum. Parzen 1961 |
+| `bohman` | -46 dB | -24 dB/oct | Autocorrelation of cosine window | Fast sidelobe decay, spectral estimation |
+
+<p align="center">
+<img src="docs/plots/rectangular.svg" width="420" alt="rectangular">
+<img src="docs/plots/triangular.svg" width="420" alt="triangular">
+<img src="docs/plots/bartlett.svg" width="420" alt="bartlett">
+<img src="docs/plots/welch.svg" width="420" alt="welch">
+<img src="docs/plots/connes.svg" width="420" alt="connes">
+<img src="docs/plots/hann.svg" width="420" alt="hann">
+<img src="docs/plots/hamming.svg" width="420" alt="hamming">
+<img src="docs/plots/cosine.svg" width="420" alt="cosine">
+<img src="docs/plots/blackman.svg" width="420" alt="blackman">
+<img src="docs/plots/exactBlackman.svg" width="420" alt="exactBlackman">
+<img src="docs/plots/nuttall.svg" width="420" alt="nuttall">
+<img src="docs/plots/blackmanNuttall.svg" width="420" alt="blackmanNuttall">
+<img src="docs/plots/blackmanHarris.svg" width="420" alt="blackmanHarris">
+<img src="docs/plots/flatTop.svg" width="420" alt="flatTop">
+<img src="docs/plots/bartlettHann.svg" width="420" alt="bartlettHann">
+<img src="docs/plots/lanczos.svg" width="420" alt="lanczos">
+<img src="docs/plots/parzen.svg" width="420" alt="parzen">
+<img src="docs/plots/bohman.svg" width="420" alt="bohman">
+</p>
+
+<details>
+<summary>Formulas</summary>
+
+$$w(n) = 1 \quad \text{(rectangular)}$$
+
+$$w(n) = 1 - \left|\frac{2n - N + 1}{N}\right| \quad \text{(triangular)}$$
+
+$$w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right| \quad \text{(bartlett)}$$
+
+$$w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2 \quad \text{(welch)}$$
+
+$$w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2 \quad \text{(connes)}$$
 
-To calculate the value of a window function, pass the sample number `i` and `total` number of samples to one of the window functions listed below, along with any additional parameters it may require. The plots below are calculated from the npm module and plotted with Fourier transform to illustrate the spectral leakage. See [the Wikipedia page on window functions](http://en.wikipedia.org/wiki/Window_function) for more details.
+$$w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) \quad \text{(hann)}$$
 
-- [Bartlett-Hann](#bartletthann-i-n-)
-- [Bartlett](#bartlett-i-n-)
-- [Blackman-Harris](#blackmanharris-i-n-)
-- [Blackman-Nuttall](#blackmannuttall-i-n-)
-- [Cosine](#cosine-i-n-)
-- [Exact Blackman](#exactblackman-i-n-)
-- [Flat top](#flattop-i-n-)
-- [Gaussian](#gaussian-i-n-sigma-)
-- [Hamming](#hamming-i-n-)
-- [Hann](#hann-i-n-)
-- [Lanczos](#lanczos-i-n-)
-- [Nuttall](#nuttall-i-n-)
-- [Rectangular](#rectangular-i-n-)
-- [Triangular](#triangular-i-n-)
-- [Tukey](#tukey-i-n-alpha-)
-- [Welch](#welch-i-n-)
+$$w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right) \quad \text{(hamming)}$$
 
+$$w(n) = \sin\!\left(\frac{\pi n}{N-1}\right) \quad \text{(cosine)}$$
 
-#### `bartlettHann( i, N )`:
+$$w(n) = \sum_{k=0}^{K} (-1)^k\, a_k \cos\!\left(\frac{2\pi k n}{N-1}\right) \quad \text{(cosine-sum family: blackman, nuttall, etc.)}$$
 
-![Bartlett-Hann Window Equation 1](docs/equations/bartlett-hann-1.png)
+$$w(n) = 0.62 - 0.48\left|\frac{n}{N-1} - 0.5\right| - 0.38\cos\!\left(\frac{2\pi n}{N-1}\right) \quad \text{(bartlettHann)}$$
 
-![Bartlett-Hann Window Equation 2](docs/equations/bartlett-hann-2.png)
+$$w(n) = \operatorname{sinc}\!\left(\frac{2n}{N-1} - 1\right) \quad \text{(lanczos)}$$
 
-![Bartlett-Hann](docs/plots/bartlett-hann.png)
+$$w(n) = \begin{cases} 1 - 6a^2(1-a) & |a| \le 0.5 \\ 2(1-a)^3 & |a| > 0.5 \end{cases},\quad a = \left|\frac{2n-N+1}{N-1}\right| \quad \text{(parzen)}$$
 
-#### `bartlett( i, N )`:
+$$w(n) = (1-|a|)\cos(\pi|a|) + \frac{\sin(\pi|a|)}{\pi},\quad a = \frac{2n-N+1}{N-1} \quad \text{(bohman)}$$
 
-![Bartlett](docs/plots/bartlett.png)
+</details>
+
+### Parameterized — adjustable tradeoff
+
+| Window | Parameters | What it does | When to use |
+|---|---|---|---|
+| `kaiser(i, N, beta)` | `beta`: 0→rect, 5.4→Hamming, 8.6→Blackman | Near-optimal DPSS approximation via Bessel I0 | FIR filter design — the standard parameterized window. Kaiser 1974 |
+| `gaussian(i, N, sigma)` | `sigma`: width, default 0.4 | Gaussian bell, minimum time-bandwidth product | STFT/Gabor transform, frequency estimation via parabolic interpolation. Gabor 1946 |
+| `generalizedNormal(i, N, sigma, p)` | `sigma`, `p`: shape (2=Gaussian, →∞=rect) | Continuous family between Gaussian and rectangular | Adjustable time-frequency tradeoff, controllable flat-top width |
+| `tukey(i, N, alpha)` | `alpha`: 0→rect, 1→Hann | Flat center with cosine-tapered edges | Preserving signal amplitude while tapering edges. Vibration analysis, LIGO |
+| `planckTaper(i, N, epsilon)` | `epsilon`: taper fraction, default 0.1 | C∞-smooth bump function (infinitely differentiable) | Gravitational wave analysis (LIGO/Virgo). McKechan 2010 |
+| `powerOfSine(i, N, alpha)` | `alpha`: 0→rect, 1→cosine, 2→Hann | `sin^α` family | Codec design, parameterized spectral analysis |
+| `exponential(i, N, tau)` | `tau`: time constant, default 1 | Exponential decay from center | Modal analysis, impact testing (compensates underdamped responses). Harris 1978 |
+| `hannPoisson(i, N, alpha)` | `alpha`: ≥2 → no sidelobes | Hann × exponential product | Frequency estimators using convex optimization — unique no-sidelobe property |
+| `cauchy(i, N, alpha)` | `alpha`: width, default 3 | Lorentzian 1/(1+x²) shape | Spectroscopy (matches spectral line shapes). Harris 1978 |
+| `rifeVincent(i, N, order)` | `order`: 1=Hann, 2, 3 | Cosine-sum optimized for sidelobe fall-off | Power grid harmonic analysis, interpolated DFT. Rife & Vincent 1970 |
+| `confinedGaussian(i, N, sigmaT)` | `sigmaT`: temporal width, default 0.1 | Optimal RMS time-frequency bandwidth | Time-frequency analysis, audio coding (MP3/AAC). Starosielec 2014 |
 
-#### `blackman( i, N )`:
+<p align="center">
+<img src="docs/plots/kaiser.svg" width="420" alt="kaiser">
+<img src="docs/plots/gaussian.svg" width="420" alt="gaussian">
+<img src="docs/plots/generalizedNormal.svg" width="420" alt="generalizedNormal">
+<img src="docs/plots/tukey.svg" width="420" alt="tukey">
+<img src="docs/plots/planckTaper.svg" width="420" alt="planckTaper">
+<img src="docs/plots/powerOfSine.svg" width="420" alt="powerOfSine">
+<img src="docs/plots/exponential.svg" width="420" alt="exponential">
+<img src="docs/plots/hannPoisson.svg" width="420" alt="hannPoisson">
+<img src="docs/plots/cauchy.svg" width="420" alt="cauchy">
+<img src="docs/plots/rifeVincent.svg" width="420" alt="rifeVincent">
+<img src="docs/plots/confinedGaussian.svg" width="420" alt="confinedGaussian">
+</p>
 
-![Blackman Window Equation 1](docs/equations/blackman-1.png)
+<details>
+<summary>Formulas</summary>
 
-![Blackman Window Equation 2](docs/equations/blackman-2.png)
+$$w(n) = \frac{I_0\!\left(\beta\sqrt{1 - \left(\frac{2n-N+1}{N-1}\right)^2}\right)}{I_0(\beta)} \quad \text{(kaiser)}$$
 
-![Blackman](docs/plots/blackman.png)
+$$w(n) = \exp\!\left[-\frac{1}{2}\left(\frac{2n-N+1}{\sigma(N-1)}\right)^2\right] \quad \text{(gaussian)}$$
 
-#### `blackmanHarris( i, N )`:
+$$w(n) = \exp\!\left[-\frac{1}{2}\left|\frac{2n-N+1}{\sigma(N-1)}\right|^p\right] \quad \text{(generalizedNormal)}$$
 
-![Blackman-Harris Window Equation 1](docs/equations/blackman-harris-1.png)
+$$w(n) = \begin{cases} \frac{1}{2}\left[1+\cos\!\left(\pi\!\left(\frac{n}{\alpha(N-1)/2}-1\right)\right)\right] & n \le \frac{\alpha(N-1)}{2} \\ 1 & \text{center} \\ \text{symmetric} & n \ge N-1-\frac{\alpha(N-1)}{2} \end{cases} \quad \text{(tukey)}$$
 
-![Blackman-Harris Window Equation 2](docs/equations/blackman-harris-2.png)
+$$w(n) = \sin^\alpha\!\left(\frac{\pi n}{N-1}\right) \quad \text{(powerOfSine)}$$
 
-![Blackman-Harris](docs/plots/blackman-harris.png)
+$$w(n) = \exp\!\left(\frac{-|2n-N+1|}{\tau(N-1)}\right) \quad \text{(exponential)}$$
 
-#### `blackmanNuttall( i, N )`:
+$$w(n) = \frac{1}{2}\left(1-\cos\frac{2\pi n}{N-1}\right)\exp\!\left(\frac{-\alpha|2n-N+1|}{N-1}\right) \quad \text{(hannPoisson)}$$
 
-![Blackman-Nuttall Window Equation 1](docs/equations/blackman-nuttall-1.png)
+$$w(n) = \frac{1}{1+\left(\frac{\alpha(2n-N+1)}{N-1}\right)^2} \quad \text{(cauchy)}$$
 
-![Blackman-Nuttall Window Equation 2](docs/equations/blackman-nuttall-2.png)
+$$w(n) = \frac{1}{Z}\sum_{k=0}^{K}(-1)^k a_k\cos\frac{2\pi kn}{N-1} \quad \text{(rifeVincent, class I)}$$
 
-![Blackman-nuttall](docs/plots/blackman-nuttall.png)
+</details>
 
-#### `cosine( i, N )`:
+### Array-computed — require full-window computation (cached)
 
-![Cosine Window Equation 1](docs/equations/cosine.png)
+| Window | Parameters | What it does | When to use |
+|---|---|---|---|
+| `dolphChebyshev(i, N, dB)` | `dB`: sidelobe attenuation, default 100 | Optimal: narrowest main lobe for given equiripple sidelobe level | Antenna array design, radar beam patterns. Dolph 1946 |
+| `taylor(i, N, nbar, sll)` | `nbar`: constant lobes (4), `sll`: level dB (30) | Dolph-Chebyshev variant with monotonically decreasing sidelobes | Radar, SAR image formation — the radar community standard. Taylor 1955 |
+| `kaiserBesselDerived(i, N, beta)` | `beta`: shape, default 8.6. N must be even | Princen-Bradley condition for perfect MDCT reconstruction | AAC, Vorbis, Opus audio codecs (long blocks). Princen & Bradley 1987 |
+| `dpss(i, N, W)` | `W`: half-bandwidth [0, 0.5], default 0.1 | Provably optimal energy concentration in frequency band | Thomson multitaper spectral estimation, neuroscience (EEG/MEG), climate science. Slepian 1978 |
+| `ultraspherical(i, N, mu, xmu)` | `mu`: 0→Dolph-Cheb, 1→Saramaki; `xmu`: sidelobe control | Gegenbauer polynomial window — independent sidelobe level and taper rate | Advanced antenna design, beamforming. Streit 1984 |
 
-![Cosine](docs/plots/cosine.png)
+<p align="center">
+<img src="docs/plots/dolphChebyshev.svg" width="420" alt="dolphChebyshev">
+<img src="docs/plots/taylor.svg" width="420" alt="taylor">
+<img src="docs/plots/kaiserBesselDerived.svg" width="420" alt="kaiserBesselDerived">
+<img src="docs/plots/dpss.svg" width="420" alt="dpss">
+<img src="docs/plots/ultraspherical.svg" width="420" alt="ultraspherical">
+</p>
 
-#### `exactBlackman( i, N )`:
+<details>
+<summary>Formulas</summary>
 
-![Exact Blackman](docs/plots/exact-blackman.png)
+$$W(k) = (-1)^k T_{N-1}\!\left(\beta\cos\frac{\pi k}{N}\right),\quad w = \operatorname{IDFT}(W) \quad \text{(dolphChebyshev)}$$
 
-The same as the Blackman window, except a0 = 0.42659 a1 = 0.49656, and a2 = 0.076849. These place zeros at the third and fourth sidelobes.
+$$w(n) = 1 + 2\sum_{m=1}^{\bar{n}-1} F_m \cos\frac{2\pi m(n-(N-1)/2)}{N} \quad \text{(taylor)}$$
 
-#### `flatTop( i, N )`:
+$$w(n) = \sqrt{\frac{\sum_{j=0}^{n} K(j)}{\sum_{j=0}^{N/2} K(j)}},\quad K(j) = I_0\!\left(\beta\sqrt{1-\left(\frac{2j-N/2}{N/2}\right)^2}\right) \quad \text{(kaiserBesselDerived)}$$
 
-![Flat top Window Equation 1](docs/equations/flattop-1.png)
+$$\mathbf{T}\mathbf{v} = \lambda\mathbf{v},\quad T_{jk} = \frac{\sin 2\pi W(j-k)}{\pi(j-k)} \quad \text{(dpss — dominant eigenvector)}$$
 
-![Flat top Window Equation 2](docs/equations/flattop-2.png)
+$$W(k) = C_n^\mu\!\left(x_\mu\cos\frac{\pi k}{N}\right),\quad w = \operatorname{IDFT}(W) \quad \text{(ultraspherical)}$$
 
-![Flat Top](docs/plots/flattop.png)
+</details>
 
-#### `gaussian( i, N, sigma )`:
+## Which window should I pick?
 
-Sigma controls the width of the window.
+| I need to... | Use | Why |
+|---|---|---|
+| Just get started | `hann` | Good all-round, zero edges, 50% COLA |
+| Design FIR filters | `kaiser` or `hamming` | Kaiser is tunable, Hamming is the classic |
+| Measure amplitudes accurately | `flatTop` | < 0.01 dB scalloping loss |
+| High dynamic range (>80 dB) | `blackmanHarris` | -92 dB equiripple sidelobes |
+| Audio codec (MDCT) | `kaiserBesselDerived` or `cosine` | Princen-Bradley perfect reconstruction |
+| Preserve center, taper edges | `tukey` | Adjustable flat-top fraction |
+| Robust spectral estimation | `dpss` | Optimal for multitaper method |
+| Frequency estimation via optimization | `hannPoisson` | Monotonically decreasing (convex) transform |
+| Radar / SAR | `taylor` | Monotonic sidelobes, radar standard |
+| Antenna array design | `dolphChebyshev` or `ultraspherical` | Optimal equiripple or tunable taper |
+| Tune resolution/leakage continuously | `kaiser` or `gaussian` | Single-parameter adjustment |
+| Modal / impact analysis | `exponential` | Controlled decay for underdamped systems |
+| FTIR spectroscopy | `connes` | Smooth apodization for interferograms |
+| Gravitational waves | `planckTaper` | C∞ smooth, no spectral artifacts |
 
-![Gaussian Window Equation 1](docs/equations/gaussian-1.png)
+## Quantitative metrics
 
-![Gaussian Window Equation 2](docs/equations/gaussian-2.png)
+The decision tables above give qualitative guidance. These three functions let you verify and compare numerically:
 
-![Gaussian](docs/plots/gaussian.png)
+- **ENBW** (Equivalent Noise Bandwidth) — how many frequency bins of noise power leak through the window. Rectangular = 1.0 (theoretical minimum), Hann = 1.5, Blackman-Harris = 2.0. Lower means less noise contaminates your measurement.
 
-#### `hamming( i, N )`:
+- **Scallop loss** — the worst-case amplitude error when a tone falls exactly between two DFT bins. Rectangular = 3.92 dB (worst), Hann = 1.42 dB, flat-top ≈ 0 dB (best). This is why flat-top windows exist: amplitude accuracy at the cost of frequency resolution.
 
-![Hamming Window Equation 1](docs/equations/hamming-1.png)
+- **COLA** (Constant Overlap-Add) — whether overlapping windows sum to a constant, which guarantees perfect STFT reconstruction. Returns 0 for perfect COLA. Hann at 50% overlap is the classic COLA pair.
 
-![Hamming Window Equation 2](docs/equations/hamming-2.png)
+## Migrating from v2
 
-![Hamming](docs/plots/hamming.png)
+v3 is a complete rewrite: CJS → ESM, 20 files → 1, 18 → 34 windows.
 
-#### `hann( i, N )`:
-
-![Hann Window Equation](docs/equations/hann.png)
-
-![Hann](docs/plots/hann.png)
-
-#### `lanczos( i, N )`:
-
-![Lanczos Window Equation](docs/equations/lanczos.png)
-
-![Lanczos](docs/plots/lanczos.png)
-
-#### `nuttall( i, N )`:
-![Nuttall Window Equation 1](docs/equations/nuttall-1.png)
-
-![Nuttall Window Equation 2](docs/equations/nuttall-2.png)
-
-![Nuttall](docs/plots/nuttall.png)
-
-#### `rectangular( i, N )`:
-
-![Rectangular Window Equation](docs/equations/rectangular.png)
-
-![Rectangular](docs/plots/rectangular.png)
-
-#### `triangular( i, N )`:
-
-![Triangular Window Equation](docs/equations/triangular.png)
-
-![Triangular](docs/plots/triangular.png)
-
-#### `tukey( i, N, alpha )`:
-
-A tapered cosine window. Alpha controls the relative width of the flat section. Alpha=0 is rectangular, alpha=1 is Hann.  ![Tukey Window Equation](docs/equations/tukey.png)
-
-![Tukey](docs/plots/tukey.png)
-
-#### `welch( i, N )`:
-
-![Welch Window Equation](docs/equations/welch.png)
-
-![Welch](docs/plots/welch.png)
-
-### `require('window-function/apply')(array, fn)`
-
-Apply a windowing function to an array, modifies an array in-place.
-
-### `require('window-function/generate')(fn, n)`
-
-Generate an array of `n` samples of the window function `fn`.
-
-## Testing
-
-The tests ensure the window functions aren't returning NaN, but it's hard to have confidence in the accuracy with tests. Instead, I opted to focus on visual testing via plots and Fourier Transforms. To generate the plots, run
-
-```bash
-$ npm run generate-plots
+```diff
+- const hann = require('window-function/hann')
+- const apply = require('window-function/apply')
++ import { hann, apply } from 'window-function'
 ```
 
-It pipes them through matplotlib. Don't worry. I realize the irony.
+The per-sample API (`fn(i, N, ...params) → number`) is unchanged.
 
+## References
 
+| Year | Reference | Windows |
+|---|---|---|
+| 1946 | Dolph, *Proc. IRE* 34 | Dolph-Chebyshev |
+| 1946 | Gabor, *J. IEE* 93 | Gaussian |
+| 1950 | Bartlett, *Biometrika* 37 | Bartlett |
+| 1955 | Taylor, *IRE Trans. Antennas Propag.* AP-4 | Taylor |
+| 1958 | Blackman & Tukey, *The Measurement of Power Spectra* | Hann, Blackman |
+| 1961 | Connes, *Revue d'Optique* 40 | Connes |
+| 1961 | Parzen, *Technometrics* 3 | Parzen |
+| 1967 | Welch, *IEEE Trans. Audio Electroacoustics* AU-15 | Welch |
+| 1970 | Rife & Vincent, *IEEE Trans. Instrumentation* | Rife-Vincent |
+| 1974 | Kaiser, *IEEE Int. Symp. Circuits and Systems* | Kaiser |
+| 1977 | Hamming, *Digital Filters* | Hamming |
+| 1978 | Harris, *Proc. IEEE* 66 — **the comprehensive survey** | Blackman-Harris, survey of all |
+| 1978 | Slepian, *Bell System Technical Journal* 57 | DPSS |
+| 1979 | Duchon, *J. Applied Meteorology* 18 | Lanczos |
+| 1981 | Nuttall, *IEEE Trans. ASSP* 29 | Nuttall, Blackman-Nuttall |
+| 1984 | Streit, *IEEE Trans. ASSP* 32 | Ultraspherical |
+| 1987 | Princen, Johnson & Bradley, *ICASSP* | KBD, Cosine |
+| 1989 | Ha & Pearce, *IEEE* | Bartlett-Hann |
+| 2002 | Heinzel, Rudiger & Schilling (ISO 18431) | Flat-top |
+| 2010 | McKechan, Robinson & Sathyaprakash, *Class. Quantum Grav.* | Planck-taper |
+| 2014 | Starosielec & Hagemeier, *Signal Processing* | Confined Gaussian |
 
-## Credits
-Window function definitions and equation images from [Wikipedia: Window Function](http://en.wikipedia.org/wiki/Window_function).
+## License
 
-(c) 2015 Ricky Reusser. MIT License
+MIT • <a href="https://github.com/krishnized/license/">ॐ</a>
