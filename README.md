@@ -108,7 +108,7 @@ $w(n) = 1 - \left|\frac{2n - N + 1}{N - 1}\right|$
 
 <img src="docs/plots/bartlett.svg">
 
-Linear taper, zero endpoints. Bartlett's method PSD estimation.[3]
+Linear taper, zero endpoints. Bartlett's method PSD estimation.[^bartlett1950]
 **-27 dB** sidelobe · **-12 dB/oct** rolloff
 
 ### `welch(i, N)`
@@ -117,7 +117,7 @@ $w(n) = 1 - \left(\frac{2n - N + 1}{N - 1}\right)^2$
 
 <img src="docs/plots/welch.svg">
 
-Parabolic taper. Welch's method PSD estimation.[8]
+Parabolic taper. Welch's method PSD estimation.[^welch1967]
 **-21 dB** sidelobe · **-12 dB/oct** rolloff
 
 ### `connes(i, N)`
@@ -126,7 +126,7 @@ $w(n) = \left[1 - \left(\frac{2n - N + 1}{N - 1}\right)^2\right]^2$
 
 <img src="docs/plots/connes.svg">
 
-Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodization.[6]
+Welch squared (4th power parabolic). FTIR spectroscopy, interferogram apodization.[^connes1961]
 **-24 dB/oct** rolloff
 
 ### `hann(i, N)`
@@ -135,7 +135,7 @@ $w(n) = 0.5 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
 <img src="docs/plots/hann.svg">
 
-Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50% overlap (COLA). Also called "Hanning" (misnomer).[5]
+Raised cosine, zero endpoints. The default general-purpose choice. STFT with 50% overlap (COLA). Also called "Hanning" (misnomer).[^blackman1958]
 **-32 dB** sidelobe · **-18 dB/oct** rolloff
 
 ### `hamming(i, N)`
@@ -144,7 +144,7 @@ $w(n) = 0.54 - 0.46\cos\!\left(\frac{2\pi n}{N-1}\right)$
 
 <img src="docs/plots/hamming.svg">
 
-Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR filter design, speech processing.[11]
+Raised cosine, nonzero endpoints. Optimized for first sidelobe cancellation. FIR filter design, speech processing.[^hamming1977]
 **-43 dB** sidelobe · **-6 dB/oct** rolloff
 
 ### `cosine(i, N)`
@@ -153,7 +153,7 @@ $w(n) = \sin\!\left(\frac{\pi n}{N-1}\right)$
 
 <img src="docs/plots/cosine.svg">
 
-Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis.[17]
+Half-period sine. MDCT audio codecs: MP3, AAC, Vorbis.[^princen1987]
 **-23 dB** sidelobe · **-12 dB/oct** rolloff
 
 ### `blackman(i, N)`
@@ -162,7 +162,7 @@ $w(n) = 0.42 - 0.5\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.08\cos\!\left(\frac{
 
 <img src="docs/plots/blackman.svg">
 
-3-term cosine sum. Better leakage than Hann at the cost of wider main lobe.[5]
+3-term cosine sum. Better leakage than Hann at the cost of wider main lobe.[^blackman1958]
 **-58 dB** sidelobe · **-18 dB/oct** rolloff
 
 ### `exactBlackman(i, N)`
@@ -171,7 +171,7 @@ $w(n) = 0.42659 - 0.49656\cos\!\left(\frac{2\pi n}{N-1}\right) + 0.076849\cos\!\
 
 <img src="docs/plots/exactBlackman.svg">
 
-Blackman with exact zero placement at 3rd and 4th sidelobes.[12]
+Blackman with exact zero placement at 3rd and 4th sidelobes.[^harris1978]
 **-69 dB** sidelobe · **-6 dB/oct** rolloff
 
 ### `nuttall(i, N)`
@@ -180,7 +180,7 @@ $w(n) = 0.355768 - 0.487396\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.144232\
 
 <img src="docs/plots/nuttall.svg">
 
-4-term cosine sum, continuous 1st derivative. High-dynamic-range analysis without edge discontinuity.[15]
+4-term cosine sum, continuous 1st derivative. High-dynamic-range analysis without edge discontinuity.[^nuttall1981]
 **-93 dB** sidelobe · **-18 dB/oct** rolloff
 
 ### `blackmanNuttall(i, N)`
@@ -189,7 +189,7 @@ $w(n) = 0.3635819 - 0.4891775\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.13659
 
 <img src="docs/plots/blackmanNuttall.svg">
 
-4-term cosine sum, lowest sidelobes among 4-term windows.[15]
+4-term cosine sum, lowest sidelobes among 4-term windows.[^nuttall1981]
 **-98 dB** sidelobe · **-6 dB/oct** rolloff
 
 ### `blackmanHarris(i, N)`
@@ -198,7 +198,7 @@ $w(n) = 0.35875 - 0.48829\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 0.14128\cos
 
 <img src="docs/plots/blackmanHarris.svg">
 
-4-term minimum sidelobe. ADC testing, measurement instrumentation, >80 dB dynamic range.[12]
+4-term minimum sidelobe. ADC testing, measurement instrumentation, >80 dB dynamic range.[^harris1978]
 **-92 dB** sidelobe · **-6 dB/oct** rolloff
 
 ### `flatTop(i, N)`
@@ -207,7 +207,7 @@ $w(n) = 1 - 1.93\cos\!\left(\frac{2\pi n}{N\!-\!1}\right) + 1.29\cos\!\left(\fra
 
 <img src="docs/plots/flatTop.svg">
 
-5-term cosine sum, near-zero scalloping. Peak ~4.64 (by design). Amplitude calibration, transducer calibration (~0.01 dB accuracy). ISO 18431.[19]
+5-term cosine sum, near-zero scalloping. Peak ~4.64 (by design). Amplitude calibration, transducer calibration (~0.01 dB accuracy). ISO 18431.[^heinzel2002]
 **-93 dB** sidelobe · **-6 dB/oct** rolloff
 
 ### `bartlettHann(i, N)`
@@ -216,7 +216,7 @@ $w(n) = 0.62 - 0.48\left|\frac{n}{N\!-\!1} - 0.5\right| - 0.38\cos\!\left(\frac{
 
 <img src="docs/plots/bartlettHann.svg">
 
-Bartlett-Hann hybrid. Balanced near/far sidelobe levels.[18]
+Bartlett-Hann hybrid. Balanced near/far sidelobe levels.[^ha1989]
 **-36 dB** sidelobe
 
 ### `lanczos(i, N)`
@@ -225,7 +225,7 @@ $w(n) = \text{sinc}\!\left(\frac{2n}{N-1} - 1\right)$
 
 <img src="docs/plots/lanczos.svg">
 
-Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick).[14]
+Sinc main lobe. Image resampling, interpolation (FFmpeg, ImageMagick).[^duchon1979]
 **-26 dB** sidelobe
 
 ### `parzen(i, N)`
@@ -234,7 +234,7 @@ $w(n) = 1 - 6a^2(1-a)$ for $|a| \le 0.5$, &ensp; $w(n) = 2(1-a)^3$ for $|a| > 0.
 
 <img src="docs/plots/parzen.svg">
 
-4th-order B-spline. Always-positive spectrum. Kernel density estimation.[7]
+4th-order B-spline. Always-positive spectrum. Kernel density estimation.[^parzen1961]
 **-53 dB** sidelobe · **-24 dB/oct** rolloff
 
 ### `bohman(i, N)`
@@ -258,7 +258,7 @@ $w(n) = \frac{I_0\!\left(\beta\sqrt{1 - \left(\frac{2n-N+1}{N-1}\right)^2}\right
 
 <img src="docs/plots/kaiser.svg">
 
-Near-optimal DPSS approximation via Bessel I₀. The standard parameterized window for FIR filter design.[10]
+Near-optimal DPSS approximation via Bessel I₀. The standard parameterized window for FIR filter design.[^kaiser1974]
 
 ### `gaussian(i, N, sigma)`
 
@@ -268,7 +268,7 @@ $w(n) = \exp\!\left[-\frac{1}{2}\left(\frac{2n-N+1}{\sigma(N-1)}\right)^2\right]
 
 <img src="docs/plots/gaussian.svg">
 
-Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency estimation via parabolic interpolation.[2]
+Gaussian bell, minimum time-bandwidth product. STFT/Gabor transform, frequency estimation via parabolic interpolation.[^gabor1946]
 
 ### `generalizedNormal(i, N, sigma, p)`
 
@@ -296,7 +296,7 @@ Flat center with cosine-tapered edges. Preserves signal amplitude while tapering
 
 <img src="docs/plots/planckTaper.svg">
 
-C∞-smooth bump function (infinitely differentiable). Gravitational wave analysis (LIGO/Virgo).[20]
+C∞-smooth bump function (infinitely differentiable). Gravitational wave analysis (LIGO/Virgo).[^mckechan2010]
 
 ### `powerOfSine(i, N, alpha)`
 
@@ -316,7 +316,7 @@ $w(n) = \exp\!\left(\frac{-|2n-N+1|}{\tau(N-1)}\right)$
 
 <img src="docs/plots/exponential.svg">
 
-Exponential decay from center. Modal analysis, impact testing.[12]
+Exponential decay from center. Modal analysis, impact testing.[^harris1978]
 
 ### `hannPoisson(i, N, alpha)`
 
@@ -336,7 +336,7 @@ $w(n) = \frac{1}{1+\left(\frac{\alpha(2n-N+1)}{N-1}\right)^2}$
 
 <img src="docs/plots/cauchy.svg">
 
-Lorentzian shape. Matches spectral line shapes in spectroscopy.[12]
+Lorentzian shape. Matches spectral line shapes in spectroscopy.[^harris1978]
 
 ### `rifeVincent(i, N, order)`
 
@@ -346,7 +346,7 @@ $w(n) = \frac{1}{Z}\sum_{k=0}^{K}(-1)^k a_k\cos\frac{2\pi kn}{N-1}$
 
 <img src="docs/plots/rifeVincent.svg">
 
-Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis, interpolated DFT.[9]
+Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis, interpolated DFT.[^rife1970]
 
 ### `confinedGaussian(i, N, sigmaT)`
 
@@ -354,7 +354,7 @@ Class I cosine-sum optimized for sidelobe fall-off. Power grid harmonic analysis
 
 <img src="docs/plots/confinedGaussian.svg">
 
-Optimal RMS time-frequency bandwidth. Time-frequency analysis, audio coding.[21]
+Optimal RMS time-frequency bandwidth. Time-frequency analysis, audio coding.[^starosielec2014]
 
 
 
@@ -370,7 +370,7 @@ $W(k) = (-1)^k T_{N-1}\!\left(\beta\cos\frac{\pi k}{N}\right)$, &ensp; $w = \tex
 
 <img src="docs/plots/dolphChebyshev.svg">
 
-Optimal: narrowest main lobe for given equiripple sidelobe level. Antenna design, radar.[1]
+Optimal: narrowest main lobe for given equiripple sidelobe level. Antenna design, radar.[^dolph1946]
 
 ### `taylor(i, N, nbar, sll)`
 
@@ -380,7 +380,7 @@ $w(n) = 1 + 2\sum_{m=1}^{\bar{n}-1} F_m \cos\frac{2\pi m(n-(N\!-\!1)/2)}{N}$
 
 <img src="docs/plots/taylor.svg">
 
-Monotonically decreasing sidelobes. The radar community standard for SAR image formation.[4]
+Monotonically decreasing sidelobes. The radar community standard for SAR image formation.[^taylor1955]
 
 ### `kaiserBesselDerived(i, N, beta)`
 
@@ -390,7 +390,7 @@ $w(n) = \sqrt{\frac{\sum_{j=0}^{n} K(j)}{\sum_{j=0}^{N/2} K(j)}}$, &ensp; $K(j) 
 
 <img src="docs/plots/kaiserBesselDerived.svg">
 
-Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vorbis, Opus audio codecs.[17]
+Princen-Bradley condition for perfect MDCT reconstruction. AAC, Vorbis, Opus audio codecs.[^princen1987]
 
 ### `dpss(i, N, W)`
 
@@ -400,7 +400,7 @@ $\mathbf{T}\mathbf{v} = \lambda\mathbf{v}$, &ensp; $T_{jk} = \frac{\sin 2\pi W(j
 
 <img src="docs/plots/dpss.svg">
 
-Dominant eigenvector of sinc Toeplitz matrix — provably optimal energy concentration. Also called Slepian window. Multitaper spectral estimation, neuroscience, climate science.[13]
+Dominant eigenvector of sinc Toeplitz matrix — provably optimal energy concentration. Also called Slepian window. Multitaper spectral estimation, neuroscience, climate science.[^slepian1978]
 
 ### `ultraspherical(i, N, mu, xmu)`
 
@@ -410,7 +410,7 @@ $W(k) = C_n^\mu\!\left(x_\mu\cos\frac{\pi k}{N}\right)$, &ensp; $w = \text{IDFT}
 
 <img src="docs/plots/ultraspherical.svg">
 
-Gegenbauer polynomial window. Independent control of sidelobe level and taper rate. Antenna design, beamforming.[16]
+Gegenbauer polynomial window. Independent control of sidelobe level and taper rate. Antenna design, beamforming.[^streit1984]
 
 
 
@@ -475,28 +475,26 @@ cola(hann, 1024, 512)            // 0 — perfect STFT reconstruction
 - **`scallopLoss(fn, N, ...params)`** — worst-case amplitude error in dB between DFT bins. Rectangular = 3.92, Hann = 1.42, flat-top ≈ 0.
 - **`cola(fn, N, hop, ...params)`** — COLA deviation. 0 = perfect STFT reconstruction at given hop size.
 
-## References
-
-1. C.L. Dolph, "A Current Distribution for Broadside Arrays," *Proc. IRE* 34, 1946.
-2. D. Gabor, "Theory of Communication," *J. IEE* 93, 1946.
-3. M.S. Bartlett, "Periodogram Analysis and Continuous Spectra," *Biometrika* 37, 1950.
-4. T.T. Taylor, "Design of Line-Source Antennas," *IRE Trans. Antennas Propag.* AP-4, 1955.
-5. R.B. Blackman & J.W. Tukey, *The Measurement of Power Spectra*, Dover, 1958.
-6. J. Connes, "Recherches sur la spectroscopie par transformation de Fourier," *Revue d'Optique* 40, 1961.
-7. E. Parzen, "Mathematical Considerations in the Estimation of Spectra," *Technometrics* 3, 1961.
-8. P.D. Welch, "The Use of FFT for Estimation of Power Spectra," *IEEE Trans. Audio Electroacoustics* AU-15, 1967.
-9. D.C. Rife & G.A. Vincent, "Use of the DFT in Measurement of Frequencies and Levels of Tones," *Bell Syst. Tech. J.* 49, 1970.
-10. J.F. Kaiser, "Nonrecursive Digital Filter Design Using the Sinh Window Function," *IEEE Int. Symp. Circuits and Systems*, 1974.
-11. R.W. Hamming, *Digital Filters*, Prentice-Hall, 1977.
-12. F.J. Harris, "On the Use of Windows for Harmonic Analysis with the DFT," *Proc. IEEE* 66, 1978.
-13. D. Slepian, "Prolate Spheroidal Wave Functions — V," *Bell Syst. Tech. J.* 57, 1978.
-14. C.E. Duchon, "Lanczos Filtering in One and Two Dimensions," *J. Applied Meteorology* 18, 1979.
-15. A.H. Nuttall, "Some Windows with Very Good Sidelobe Behavior," *IEEE Trans. ASSP* 29, 1981.
-16. R.L. Streit, "A Two-Parameter Family of Weights for Nonrecursive Digital Filters and Antennas," *IEEE Trans. ASSP* 32, 1984.
-17. J.P. Princen, A.W. Johnson & A.B. Bradley, "Subband/Transform Coding Using Filter Bank Designs Based on Time Domain Aliasing Cancellation," *ICASSP*, 1987.
-18. Y.H. Ha & J.A. Pearce, "A New Window and Comparison to Standard Windows," *IEEE Trans. ASSP*, 1989.
-19. G. Heinzel, A. Rudiger & R. Schilling, "Spectrum and Spectral Density Estimation by the DFT," Max Planck Institute, 2002.
-20. D.J.A. McKechan et al., "A Tapering Window for Time-Domain Templates," *Class. Quantum Grav.* 27, 2010.
-21. S. Starosielec & D. Hagemeier, "Discrete-Time Windows with Minimal RMS Bandwidth," *Signal Processing* 102, 2014.
+[^dolph1946]: C.L. Dolph, "A Current Distribution for Broadside Arrays," *Proc. IRE* 34, 1946.
+[^gabor1946]: D. Gabor, "Theory of Communication," *J. IEE* 93, 1946.
+[^bartlett1950]: M.S. Bartlett, "Periodogram Analysis and Continuous Spectra," *Biometrika* 37, 1950.
+[^taylor1955]: T.T. Taylor, "Design of Line-Source Antennas," *IRE Trans. Antennas Propag.* AP-4, 1955.
+[^blackman1958]: R.B. Blackman & J.W. Tukey, *The Measurement of Power Spectra*, Dover, 1958.
+[^connes1961]: J. Connes, "Recherches sur la spectroscopie par transformation de Fourier," *Revue d'Optique* 40, 1961.
+[^parzen1961]: E. Parzen, "Mathematical Considerations in the Estimation of Spectra," *Technometrics* 3, 1961.
+[^welch1967]: P.D. Welch, "The Use of FFT for Estimation of Power Spectra," *IEEE Trans. Audio Electroacoustics* AU-15, 1967.
+[^rife1970]: D.C. Rife & G.A. Vincent, "Use of the DFT in Measurement of Frequencies and Levels of Tones," *Bell Syst. Tech. J.* 49, 1970.
+[^kaiser1974]: J.F. Kaiser, "Nonrecursive Digital Filter Design Using the Sinh Window Function," *IEEE Int. Symp. Circuits and Systems*, 1974.
+[^hamming1977]: R.W. Hamming, *Digital Filters*, Prentice-Hall, 1977.
+[^harris1978]: F.J. Harris, "On the Use of Windows for Harmonic Analysis with the DFT," *Proc. IEEE* 66, 1978.
+[^slepian1978]: D. Slepian, "Prolate Spheroidal Wave Functions — V," *Bell Syst. Tech. J.* 57, 1978.
+[^duchon1979]: C.E. Duchon, "Lanczos Filtering in One and Two Dimensions," *J. Applied Meteorology* 18, 1979.
+[^nuttall1981]: A.H. Nuttall, "Some Windows with Very Good Sidelobe Behavior," *IEEE Trans. ASSP* 29, 1981.
+[^streit1984]: R.L. Streit, "A Two-Parameter Family of Weights for Nonrecursive Digital Filters and Antennas," *IEEE Trans. ASSP* 32, 1984.
+[^princen1987]: J.P. Princen, A.W. Johnson & A.B. Bradley, "Subband/Transform Coding Using Filter Bank Designs Based on TDAC," *ICASSP*, 1987.
+[^ha1989]: Y.H. Ha & J.A. Pearce, "A New Window and Comparison to Standard Windows," *IEEE Trans. ASSP*, 1989.
+[^heinzel2002]: G. Heinzel, A. Rudiger & R. Schilling, "Spectrum and Spectral Density Estimation by the DFT," Max Planck Institute, 2002.
+[^mckechan2010]: D.J.A. McKechan et al., "A Tapering Window for Time-Domain Templates," *Class. Quantum Grav.* 27, 2010.
+[^starosielec2014]: S. Starosielec & D. Hagemeier, "Discrete-Time Windows with Minimal RMS Bandwidth," *Signal Processing* 102, 2014.
 
 <p align=center>MIT · <a href="https://github.com/krishnized/license/">ॐ</a></p>
