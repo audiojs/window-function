@@ -1,6 +1,6 @@
 {
   "name": "window-function",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "type": "module",
   "description": "Window functions for signal processing and spectral analysis",
   "exports": {
@@ -42,7 +42,13 @@
     "./util": "./util.js"
   },
   "types": "./index.d.ts",
-  "typesVersions": { "*": { "*": ["./index.d.ts"] } },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "test": "node --test test.js"
   },
