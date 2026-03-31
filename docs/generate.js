@@ -41,15 +41,17 @@ for (let name of wins) {
 	let db = new Float64Array(mag.length)
 	for (let i = 0; i < mag.length; i++) db[i] = 20 * Math.log10(Math.max(mag[i] / peak, 1e-15))
 
-	// Time-domain y-range
-	let tMax = 0
-	for (let i = 0; i < N; i++) if (samples[i] > tMax) tMax = samples[i]
+	// Time-domain y-range (handle windows that go negative like flatTop, dolphChebyshev)
+	let tMax = 0, tMin = 0
+	for (let i = 0; i < N; i++) { if (samples[i] > tMax) tMax = samples[i]; if (samples[i] < tMin) tMin = samples[i] }
 	let yTop = tMax <= 1.1 ? 1 : Math.ceil(tMax)
-	let yTicks = tMax <= 1.1 ? [0, 0.5, 1] : Array.from({ length: yTop + 1 }, (_, i) => i)
+	let yBot = tMin >= -0.01 ? 0 : Math.floor(tMin * 2) / 2 // round down to nearest 0.5
+	let yTicks = tMax <= 1.1 && tMin >= -0.01 ? [0, 0.5, 1] : []
+	if (!yTicks.length) for (let y = yBot; y <= yTop; y += yTop > 2 ? 1 : 0.5) yTicks.push(Math.round(y * 10) / 10)
 
 	let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" style="font-family:system-ui,-apple-system,sans-serif">\n`
 
-	svg += panel(L, samples, 0, 1, 0, yTop, [0, 0.5, 1], yTicks, true)
+	svg += panel(L, samples, 0, 1, yBot, yTop, [0, 0.5, 1], yTicks, true)
 	svg += panel(R, db, 0, 0.5, -120, 0, [0, 0.1, 0.2, 0.3, 0.4, 0.5], [0, -40, -80, -120], false)
 
 	// Axis labels
